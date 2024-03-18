@@ -46,7 +46,7 @@ const OneProduct = (props) => {
             <ProductImage src={props.photo}  />
             <ProductInfo>
                 <ProductName>{props.name}</ProductName>
-                <ProductPrice>Price: {props.price}</ProductPrice>
+                <ProductPrice>${props.price}</ProductPrice>
             </ProductInfo>
         </ProductContainer>
     );
