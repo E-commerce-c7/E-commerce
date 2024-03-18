@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Card, Button } from 'react-bootstrap';
 
 const ProductDetails = () => {
-    const [quantity, setQuantity] = useState(1);
-    const [size, setSize] = useState('36');
-    const [color, setColor] = useState('white');
+    const [quantity, setQuantity] = useState('0');
+    const [size, setSize] = useState('');
+    const [color, setColor] = useState('');
     const stock = 'Available'; // Added stock variable
 
     const handleQuantityChange = (event) => {
@@ -44,7 +44,7 @@ const ProductDetails = () => {
                         <Card.Text style={{ fontSize: '14px', margin: '10px 0', color: '#333' }}>
                             Size:
                             <div style={{ marginTop: '5px' }}>
-                                {['36', '40', '41'].map((sizeOption) => (
+                                {['36', '40', '41','43'].map((sizeOption) => (
                                     <Button
                                         key={sizeOption}
                                         variant={size === sizeOption ? 'primary' : 'outline-primary'}
@@ -59,7 +59,7 @@ const ProductDetails = () => {
                         <Card.Text style={{ fontSize: '14px', margin: '10px 0', color: '#333' }}>
                             Color:
                             <div style={{ marginTop: '5px' }}>
-                                {['white', 'black'].map((colorOption) => (
+                                {['white', 'black','grey'].map((colorOption) => (
                                     <Button
                                         key={colorOption}
                                         variant={color === colorOption ? 'primary' : 'outline-primary'}
