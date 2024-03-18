@@ -1,26 +1,19 @@
-const express = require('express');
-const morgan = require('morgan');
-const db = require('./db');
+const express = require("express");
+let app = express();
+const cors=require('cors')
+const db = require ("./db/index.js")
+// const route = require('./models/routes/index');
 
-
-const app = express();
-
-app.use(morgan('dev'));
+app.use(express.static(__dirname + "/../client/dist"));
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use(express.static(__dirname + '/../client/dist'));
+app.use(cors())
 
+// app.use('/api', route);
+let port = 3000;
 
-
-// TODO: Import the pokemonRouter and assign it to the correct route:
-
-
-app.get('/', function (req, res) {
-  res.json({ message: 'Welcome to the Poke-MongoDB RESTful API!' });
-});
-
-const PORT = 3000;
-
-app.listen(PORT, function () {
-  console.log('Poke-MongoDB RESTful API listening on http://localhost:' + PORT);
+// app.get("/api",function(req,res){
+//   res.send("hello Word")
+//   })
+app.listen(port, function () {
+  console.log(`listening on port ${port}`);
 });
