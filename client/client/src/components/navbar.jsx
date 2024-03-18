@@ -2,9 +2,9 @@ import React from 'react'; // Import React
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import { CiShop } from "react-icons/ci";
 
-export default function NavBar() {
-  return (
-    <Navbar fluid rounded>
+export default function NavBar(props) {
+  return ( <div tyle={{ marginTop: '20px' }} >
+    <Navbar fluid rounded className="my-navbar"> 
       <Navbar.Brand>
         <CiShop style={{ color: 'black', fontSize: '2rem' }} /> 
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white"></span>
@@ -42,5 +42,6 @@ export default function NavBar() {
         </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
+    </div>
   );
 }
