@@ -33,7 +33,7 @@ const ProductList = ({ products }) => {
 
   return (
     <div >
-    <h1 style={{ textAlign: 'center', margin: '20px 0', background: 'grey', color: 'white', padding: '10px', marginLeft: '20px' ,marginRight: '20px' }}>Kids</h1>
+    <h1 style={{ textAlign: 'center', margin: '20px 0', background: '#685F58', color: 'white', padding: '10px', marginLeft: '20px' ,marginRight: '20px' }}>KIDS</h1>
     <div className="product-list" style={{ display: 'flex', margin: '0 auto', gap: '20px', maxWidth: '1200px', padding: '0 20px' }}>
 
      

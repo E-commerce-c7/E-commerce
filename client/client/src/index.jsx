@@ -66,13 +66,13 @@ const App = () => {
   return (
     <div style={{  }}>
       <Navbar style={{ width: '50%' }} />
-      {/* <LandingPage />
+      <LandingPage />
       <Card />
       <div style={{ marginBottom: '20px' }}></div>
       <h1 style={{ fontSize: '24px', fontWeight: 'bold' ,textAlign: 'center', fontFamily: 'Arial', color: 'grey' }}>FEATURED PRODUCTS</h1>
       <div style={{ marginBottom: '20px' }}></div>
-      <Featured /> */}
-      {/* <OneProduct/> */}
+      <Featured /> 
+       <OneProduct/>
       <ProductList products={dummyData} />
       <FooTer/>
     </div>
