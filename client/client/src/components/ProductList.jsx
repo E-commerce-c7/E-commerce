@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import OneProduct from './OnePrduct.jsx';
 
-const ProductList = ({ products }) => {
+const ProductList = ({ products, changeView }) => {
   const [sizeFilter, setSizeFilter] = useState([]);
   const [colorFilter, setColorFilter] = useState([]);
   const [brandFilter, setBrandFilter] = useState('');
@@ -25,7 +25,7 @@ const ProductList = ({ products }) => {
   const handleBrandFilterChange = (brand) => {
     setBrandFilter(brand);
   };
-  
+
   const filteredProducts = products.filter((product) => {
     if (sizeFilter.length > 0 && !sizeFilter.includes(product.size)) {
       return false;
@@ -121,6 +121,7 @@ const ProductList = ({ products }) => {
                 photo={product.image}
                 name={product.name}
                 price={product.price}
+                changeView={changeView}
               />
             ))}
           </div>

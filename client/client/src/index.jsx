@@ -10,9 +10,11 @@ import ProductList from "./components/ProductList.jsx";
 import PostProduct from "./components/PostProduct.jsx";
 import Cart from "./components/Cart.jsx";
 import axios from 'axios'
+import Login from "./components/login.jsx";
+import SingUp from "./components/singUp.jsx";
 
 const App = () => {
-  const [view, setView] = useState('landingPage');
+  const [view, setView] = useState('singup');
   const [product,setProduct] = useState([])
 
 
@@ -116,6 +118,10 @@ const App = () => {
         return <Cart />;
       case 'addProduct':
         return <PostProduct />;
+      case 'login':
+        return <Login />;
+      case 'singup':
+        return <SingUp />;
       default:
         return null;
     }
