@@ -1,131 +1,96 @@
-const Sequelize = require('sequelize');
-
-const db = {}
-
+const { Sequelize, DataTypes } = require('sequelize');
 
 // Create a new Sequelize instance
-const sequelize = new Sequelize('ecommerce', 'root', 'root', {
+const sequelize = new Sequelize('ecommerce', 'root', 'Yeesou.33', {
     host: 'localhost',
     dialect: 'mysql',
 });
 
 // connection check :
 sequelize.authenticate()
-.then(() => {console.log('Connection has been established successfully.')})
-.catch((error) => {console.error('Unable to connect to the database: ', error)})
+    .then(() => {
+        console.log('Connection has been established successfully.')
+    })
+    .catch((error) => {
+        console.error('Unable to connect to the database: ', error)
+    })
 
 // Define the User model
- db.User = sequelize.define('user', {
+const User = sequelize.define('user', {
     name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
-    email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
+        type: DataTypes.STRING,
+        allowNull: false
     },
     password: {
-        type: Sequelize.STRING,
-        allowNull: false,
+        type: DataTypes.STRING,
+        allowNull: false
     },
-    accountType: {
-        type: Sequelize.ENUM('user', 'seller'),
-        allowNull: false,
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
-    picture: {
-        type: Sequelize.STRING,
-        allowNull: true,
-    },
+    role: {
+        type: DataTypes.ENUM('user', 'seller'),
+        allowNull: false
+    }
 });
 
 // Define the Product model
-db.Product = sequelize.define('product', {
+const Product = sequelize.define('product', {
     name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
-    price: {
-        type: Sequelize.FLOAT,
-        allowNull: false,
+        type: DataTypes.STRING,
+        allowNull: false
     },
     description: {
-        type: Sequelize.STRING,
-        allowNull: true,
+        type: DataTypes.TEXT,
+        allowNull: false
     },
-    sizes: {
-        type: Sequelize.TEXT,
-        get: function() {
-            return JSON.parse(this.getDataValue('sizes'));
-        }, 
-        set: function(val) {
-            return this.setDataValue('sizes', JSON.stringify(val));
-        }
+    price: {
+        type: DataTypes.FLOAT,
+        allowNull: false
     },
     color: {
-        type: Sequelize.TEXT,
-        get: function() {
-            return JSON.parse(this.getDataValue('color'));
-        }, 
-        set: function(val) {
-            return this.setDataValue('color', JSON.stringify(val));
-        }
+        type: DataTypes.JSON,
+        allowNull: false,
+        defaultValue: []
     },
-    quantity: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
+    sizes: {
+        type: DataTypes.JSON,
+        allowNull: false,
+        defaultValue: []
     },
-    pictures: {
-        type: Sequelize.TEXT,
-        get: function() {
-            return JSON.parse(this.getDataValue('pictures'));
-        }, 
-        set: function(val) {
-            return this.setDataValue('pictures', JSON.stringify(val));
-        }
+    image: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
     sex: {
-        type: Sequelize.ENUM('women', 'men', 'kid'),
-        allowNull: true,
+        type: DataTypes.ENUM('men', 'women', 'kids'),
+        allowNull: false
     },
+    brand: {
+        type: DataTypes.JSON,
+        allowNull: false,
+        defaultValue: []
+    }
 });
 
-// Define the Operation model
-db.Operation = sequelize.define('operation', {
-    type: {
-        type: Sequelize.STRING,
-        allowNull: false,
-    },
-    quantity: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
-    dataType: {
-        type: Sequelize.STRING,
-        allowNull: true,
-    },
-});
-
-// Define the relationships between the models
-db.User.hasMany(db.Product, { as: 'products', foreignKey: 'userId' });
-db.Product.belongsTo(db.User, { as: 'user', foreignKey: 'userId' });
-
-db.User.hasMany(db.Operation, { as: 'operations', foreignKey: 'userId' });
-db.Operation.belongsTo(db.User, { as: 'user', foreignKey: 'userId' });
-
-db.Product.belongsToMany(db.Operation, { through: 'ProductOperation', foreignKey: 'productId' });
-db.Operation.belongsToMany(db.Product, { through: 'ProductOperation', foreignKey: 'operationId' });
+// Establish the association between User and Product
+User.hasMany(Product);
+Product.belongsTo(User);
 
 
-
-
-// Create the tables in the database
-// sequelize.sync({force : true})
+// Sync the models with the database
+// sequelize.sync({ force: true })
 //     .then(() => {
-//         console.log('Database and tables created!');
+//         console.log('Models synced with the database.')
 //     })
 //     .catch((error) => {
-//         console.error('Error creating database:', error);
+//         console.error('Unable to sync models with the database: ', error)
 //     });
+ 
 
-module.exports = db
+
+module.exports.Product=Product;
+module.exports.User=User;
+
+
