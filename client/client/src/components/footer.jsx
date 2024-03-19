@@ -1,7 +1,6 @@
 import React from 'react';
 import { Footer } from 'flowbite-react';
 import { FaCcVisa, FaCcMastercard, FaCcAmex } from "react-icons/fa";
-import './footer.css'; // Import the CSS file
 
 function FooTer() {
   return (

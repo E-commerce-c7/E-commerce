@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import ReactDOM from "react-dom";
 import FooTer from "./components/footer.jsx";
 import Navbar from "./components/navbar.jsx";
@@ -9,13 +9,24 @@ import OneProduct from "./components/ProductDetails.jsx";
 import ProductList from "./components/ProductList.jsx";
 import PostProduct from "./components/PostProduct.jsx";
 import Cart from "./components/Cart.jsx";
+import axios from 'axios'
 
 const App = () => {
   const [view, setView] = useState('landingPage');
+  const [product,setProduct] = useState([])
 
+
+  useEffect(()=>{
+    fetch()
+  },[])
   const changeView = (option) => {
     setView(option);
   };
+  const fetch = ()=>{
+    axios.get('http://localhost:3000/api/product/').then((res)=>{
+      setProduct(res.data)
+    })
+  }
 
   const dummyData = [
     {
@@ -90,7 +101,7 @@ const App = () => {
         return (
           <>
             <LandingPage changeView={changeView}/>
-            <Card />
+            <Card changeView={changeView} />
             <div style={{ marginBottom: '20px' }}></div>
             <h1 style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center', fontFamily: 'Arial', color: 'grey' }}>FEATURED PRODUCTS</h1>
             <div style={{ marginBottom: '20px' }}></div>
@@ -98,7 +109,7 @@ const App = () => {
           </>
         );
       case 'productList':
-        return <ProductList changeView={changeView} products={dummyData} />;
+        return <ProductList changeView={changeView} products={product} />;
       case 'productDetails':
         return <OneProduct changeView={changeView}/>;
       case 'cart':

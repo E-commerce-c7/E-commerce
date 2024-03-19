@@ -25,7 +25,7 @@ const ProductList = ({ products }) => {
   const handleBrandFilterChange = (brand) => {
     setBrandFilter(brand);
   };
-
+  
   const filteredProducts = products.filter((product) => {
     if (sizeFilter.length > 0 && !sizeFilter.includes(product.size)) {
       return false;
@@ -118,7 +118,7 @@ const ProductList = ({ products }) => {
             {filteredProducts.map((product) => (
               <OneProduct
                 key={product.id}
-                photo={product.photo}
+                photo={product.image}
                 name={product.name}
                 price={product.price}
               />

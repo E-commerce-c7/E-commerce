@@ -15,7 +15,7 @@ export default function NavBar(props) {
     <div style={{ marginTop: '20px' }}>
       <Navbar fluid rounded className="my-navbar">
         <Navbar.Brand>
-          <CiShop style={{ color: 'black', fontSize: '2rem' }} />
+          <CiShop style={{ color: 'black', fontSize: '2rem' }} onClick={()=>changeView('landingPage')} />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white"></span>
         </Navbar.Brand>
         <div className="flex md:order-2">
