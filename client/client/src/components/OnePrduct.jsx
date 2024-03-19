@@ -45,7 +45,7 @@ const OneProduct = (props) => {
         <ProductContainer>
             <ProductImage src={props.photo}  />
             <ProductInfo>
-                <ProductName>{props.name}</ProductName>
+                <ProductName onclick={()=>{props.changeView('productDetails')}} href='#'>{props.name}</ProductName>
                 <ProductPrice>${props.price}</ProductPrice>
             </ProductInfo>
         </ProductContainer>

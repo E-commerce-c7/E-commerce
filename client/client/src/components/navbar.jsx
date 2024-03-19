@@ -12,8 +12,8 @@ export default function NavBar(props) {
   };
 
   return (
-    <div style={{ marginTop: '20px' }}>
-      <Navbar fluid rounded className="my-navbar">
+    <div >
+      <Navbar fluid rounded className="my-navbar" style={{ marginTop: '0' }}>
         <Navbar.Brand>
           <CiShop style={{ color: 'black', fontSize: '2rem' }} onClick={()=>changeView('landingPage')} />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white"></span>
@@ -39,9 +39,9 @@ export default function NavBar(props) {
         </div>
         <div className="justify-center">
           <Navbar.Collapse className="justify-center">
-            <Navbar.Link href="#" active style={{ textDecoration: 'none', margin: '0 auto', marginRight: '15px' }}>
-              Home
-            </Navbar.Link>
+            {/* <Navbar.Link href="#" active style={{ textDecoration: 'none', margin: '0 auto', marginRight: '15px' }}>
+              Homedsqdqsdqsdqs
+            </Navbar.Link> */}
             <Navbar.Link href="#" style={{ textDecoration: 'none', margin: '0 auto', marginRight: '15px' }}>
               Men
             </Navbar.Link>

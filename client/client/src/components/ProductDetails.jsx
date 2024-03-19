@@ -37,6 +37,9 @@ const ProductDetails = () => {
                         <Card.Text style={{ fontSize: '18px', fontWeight: 'bold' }}>
                             Price: $100
                         </Card.Text>
+                        <Card.Text style={{ fontSize: '13px', fontWeight: '' }}>
+                            Seller: John Doe
+                        </Card.Text>
                         <Card.Text style={{ fontSize: '14px', fontWeight: 'bold' }}>Stock: Available</Card.Text> {/* Added stock variable */}
                         <Card.Text style={{ fontSize: '14px', border: 'none', marginBottom: '5px' }}>
                             Quantity: <input type="number" value={quantity} onChange={handleQuantityChange} style={{ width: '50px', fontSize: '14px' }} />
