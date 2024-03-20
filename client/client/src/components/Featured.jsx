@@ -2,7 +2,7 @@ import React from 'react'
 
 function Featured() {
     return (
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', fontFamily: 'Arial, sans-serif' }}>
             <div>
                 <div className="card" style={{ width: '200px', margin: '1rem', border: 'none' }}>
                     <img src="https://demo.evershop.io/assets/catalog/1034/3600/plv7632-Green-list.png" alt="Card Image" className="card-image" />

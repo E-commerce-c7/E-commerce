@@ -83,7 +83,7 @@ const PostProduct = () => {
                     <label htmlFor="image" style={{ fontWeight: 'bold' }}>Image:</label>
                     <input type="file" id="image" onChange={handleImageDrop} style={{ padding: '5px', borderRadius: '5px', border: '1px solid gray' }} />
 
-                <button type="submit" style={{ padding: '10px', backgroundColor: 'black', color: 'white', border: 'none', borderRadius: '5px' }}>Submit</button>
+                <button type="submit" style={{ padding: '10px',backgroundColor: '#fff', color: '#000', border: '1px solid #000', borderRadius: '5px' }}>Submit</button>
             </form>
         </div>
     );

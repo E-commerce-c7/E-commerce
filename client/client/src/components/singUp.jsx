@@ -28,7 +28,7 @@ function singUp() {
     return (
         <div className="login-form" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontSize: '20px', marginTop: '-70px' }}>
             <div>
-                <h2>Login</h2>
+                <h2>Sing Up</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                     <label htmlFor="name">name</label>

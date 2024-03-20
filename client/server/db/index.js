@@ -32,6 +32,10 @@ const User = sequelize.define('user', {
     role: {
         type: DataTypes.ENUM('user', 'seller'),
         allowNull: false
+    },
+    image: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
 });
 
