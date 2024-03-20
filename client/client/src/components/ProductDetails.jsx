@@ -30,9 +30,9 @@ const ProductDetails = () => {
 
                 <img src="https://demo.evershop.io/assets/catalog/9916/3001/plv4547-Grey-single.png" alt="Product Image" style={{ width: '100%', height: 'auto', borderRadius: '10%' }} />
             </div>
-            <div style={{ flex: '2', padding: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div style={{ flex: '2', padding: '10px', display: 'flex', fontFamily: 'Arial, sans-serif', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <Card>
-                    <Card.Body>
+                    <Card.Body style={{ fontFamily: 'Arial, sans-serif' }}>
                         <Card.Title style={{ fontSize: '26px', fontWeight: 'bold' }}>Mix And Match Chuck Taylor All Star</Card.Title>
                         <Card.Text style={{ fontSize: '18px', fontWeight: 'bold' }}>
                             Price: $100

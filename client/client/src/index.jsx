@@ -14,8 +14,8 @@ import Login from "./components/login.jsx";
 import SingUp from "./components/singUp.jsx";
 
 const App = () => {
-  const [view, setView] = useState('singup');
-  const [product,setProduct] = useState([])
+  const [view, setView] = useState('landingPage');
+  const [product,setProduct] = useState(dummyData)
 
 
   useEffect(()=>{
@@ -26,6 +26,7 @@ const App = () => {
   };
   const fetch = ()=>{
     axios.get('http://localhost:3000/api/product/').then((res)=>{
+      console.log(res.data);
       setProduct(res.data)
     })
   }
