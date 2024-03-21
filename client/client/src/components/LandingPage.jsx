@@ -1,5 +1,6 @@
 import React from 'react'
-
+import Card from "./cards.jsx";
+import Featured from "./Featured.jsx";
 
 function LandingPage() {
   return (
@@ -10,6 +11,9 @@ function LandingPage() {
           <p className="text-xl">Use coupon code DISCOUNT20</p>
         </div>
       </div>
+     
+            
+            
     </div>
   );
 }

@@ -11,6 +11,7 @@ const ProductContainer = styled.div`
     border-radius: 5px;
     width: 200px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer; // Add cursor pointer
 `;
 
 const ProductImage = styled.img`
@@ -28,28 +29,45 @@ const ProductInfo = styled.div`
 const ProductName = styled.h2`
     font-size: 16px;
     margin-bottom: 5px;
+    font-family: Arial, sans-serif;
 `;
 
 const ProductPrice = styled.p`
     font-weight: bold;
     font-size: 14px;
+    font-family: Arial, sans-serif;
 `;
 
 const ProductDescription = styled.p`
     margin-top: 10px;
     font-size: 14px;
+    font-family: Arial, sans-serif  ;
 `;
 
 const OneProduct = (props) => {
+   
+    const handleClick = async () =>  {
+        try {
+            await props.getOne(props.product.id)
+            await  props.changeView('productDetails',props.product.id)
+            console.log('drom one',props.product);
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+     
+    
+
     return (
         <ProductContainer>
-            <ProductImage src={props.photo}  />
+            <ProductImage src={props.product.image} onClick={handleClick} />
             <ProductInfo>
-                <ProductName onclick={()=>{props.changeView('productDetails')}} href='#'>{props.name}</ProductName>
-                <ProductPrice>${props.price}</ProductPrice>
+                <ProductName onClick={handleClick}>{props.product.name}</ProductName>
+                <ProductPrice>${props.product.price}</ProductPrice>
             </ProductInfo>
         </ProductContainer>
-    );
+    )
 };
 
 export default OneProduct;

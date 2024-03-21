@@ -78,6 +78,26 @@ const Product = sequelize.define('product', {
     }
 });
 
+const Cart = sequelize.define('cart', {
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    image: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    price: {
+        type: DataTypes.FLOAT,
+        allowNull: false
+    },
+    quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1
+    }
+});
+
 // Establish the association between User and Product
 User.hasMany(Product);
 Product.belongsTo(User);
@@ -96,5 +116,6 @@ Product.belongsTo(User);
 
 module.exports.Product=Product;
 module.exports.User=User;
+module.exports.Cart=Cart;
 
 

@@ -9,7 +9,7 @@ const Card = ({changeView}) => {
                 <div className="card-content">
                     <h2 className="card-title" style={{ fontSize: '0.9rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginTop: '0.5rem', fontFamily: 'Arial, sans-serif' }}>MEN SHOES COLLECTION</h2>
                     <p className="card-description" style={{ fontSize: '0.6rem', fontFamily: 'Arial, sans-serif' }}>Constructed from luxury nylons, leathers, and custom hardware, featuring sport details such as hidden breathing vents, waterproof + antimicrobial linings, and more.</p>
-                        <Button variant="primary" style={{ width: '100%', outline: 'none', backgroundColor: '#fff', color: '#000', border: '1px solid #000' }} onClick={()=>changeView('productList')}>SHOP MEN</Button>
+                        <Button variant="primary" style={{ width: '100%', outline: 'none', backgroundColor: '#fff', color: '#000', border: '1px solid #000' }} onClick={()=>changeView('productList',0,'MEN')}>SHOP MEN</Button>
                 </div>
             </div>
             <div className="card" style={{ width: '280px', margin: '1rem', border: 'none', borderRadius: '10px' }}>
@@ -17,7 +17,7 @@ const Card = ({changeView}) => {
                 <div className="card-content">
                     <h2 className="card-title" style={{ fontSize: '0.9rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginTop: '0.5rem', fontFamily: 'Arial, sans-serif' }}>WOMEN SHOES COLLECTION</h2>
                     <p className="card-description" style={{ fontSize: '0.6rem', fontFamily: 'Arial, sans-serif' }}>Constructed from luxury nylons, leathers, and custom hardware, featuring sport details such as hidden breathing vents, waterproof + antimicrobial linings, and more.</p>
-                       <Button variant="primary" style={{ width: '100%', outline: 'none', backgroundColor: '#fff', color: '#000', border: '1px solid #000' }}>SHOP WOMEN</Button>
+                       <Button variant="primary" style={{ width: '100%', outline: 'none', backgroundColor: '#fff', color: '#000', border: '1px solid #000' }} onClick={()=>changeView('productList',0,'WOMEN')} >SHOP WOMEN</Button>
                 </div>
             </div>
             <div className="card" style={{ width: '280px', margin: '1rem', border: 'none', borderRadius: '10px' }}>
@@ -25,7 +25,7 @@ const Card = ({changeView}) => {
                 <div className="card-content">
                     <h2 className="card-title" style={{ fontSize: '0.9rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginTop: '0.5rem', fontFamily: 'Arial, sans-serif' }}>MEN SHOES COLLECTION</h2>
                     <p className="card-description" style={{ fontSize: '0.6rem', fontFamily: 'Arial, sans-serif' }}>Constructed from luxury nylons, leathers, and custom hardware, featuring sport details such as hidden breathing vents, waterproof + antimicrobial linings, and more.</p>
-                    <Button variant="primary" style={{ width: '100%', outline: 'none', backgroundColor: '#fff', color: '#000', border: '1px solid #000' }}>SHOP KIDS</Button>
+                    <Button variant="primary" style={{ width: '100%', outline: 'none', backgroundColor: '#fff', color: '#000', border: '1px solid #000' }} onClick={()=>changeView('productList',0,'KIDS')}>SHOP KIDS</Button>
                 </div>
             </div>
         </div>
