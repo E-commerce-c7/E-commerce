@@ -1,12 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Button } from 'react-bootstrap';
 
-const ProductDetails = () => {
+const ProductDetails = (props) => {
+    console.log(props);
     const [quantity, setQuantity] = useState('0');
     const [size, setSize] = useState('');
     const [color, setColor] = useState('');
-    const stock = 'Available'; // Added stock variable
+    const [product, setProduct] = useState({});
+    const [toogle, setToogle] = useState(false);
 
+    useEffect(() => {
+       filter()
+       
+    }, [toogle]);
+
+    const filter = async ()=>{
+        if (!props.product) return console.log('no product')
+        const data = props.product.filter((item)=>{
+            return item.id === props.id
+        })
+            console.log('filter',data);
+            setProduct(data)
+            setToogle(true)
+            
+        }
+        
+       
     const handleQuantityChange = (event) => {
         setQuantity(event.target.value);
     };
@@ -24,18 +43,21 @@ const ProductDetails = () => {
         }
     };
 
-    return (
-        <div style={{ display: 'flex', alignItems: 'center', margin: '0 auto', maxWidth: '800px' }}>
-            <div style={{ flex: '1', borderRight: '1px solid #ccc', padding: '10px' }}>
+    
+    
 
-                <img src="https://demo.evershop.io/assets/catalog/9916/3001/plv4547-Grey-single.png" alt="Product Image" style={{ width: '100%', height: 'auto', borderRadius: '10%' }} />
+    return ( <div>
+        <div style={{ display: 'flex', alignItems: 'center', margin: '0 auto', maxWidth: '800px' }}>
+        
+            <div style={{ flex: '1', borderRight: '1px solid #ccc', padding: '10px' }}>
+                <img src={product.image} alt="Product Image" style={{ width: '100%', height: 'auto', borderRadius: '10%' }} />
             </div>
             <div style={{ flex: '2', padding: '10px', display: 'flex', fontFamily: 'Arial, sans-serif', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <Card>
                     <Card.Body style={{ fontFamily: 'Arial, sans-serif' }}>
-                        <Card.Title style={{ fontSize: '26px', fontWeight: 'bold' }}>Mix And Match Chuck Taylor All Star</Card.Title>
+                        <Card.Title style={{ fontSize: '26px', fontWeight: 'bold' }}>{product.name}</Card.Title>
                         <Card.Text style={{ fontSize: '18px', fontWeight: 'bold' }}>
-                            Price: $100
+                            Price: ${product.price} 
                         </Card.Text>
                         <Card.Text style={{ fontSize: '13px', fontWeight: '' }}>
                             Seller: John Doe
@@ -47,7 +69,7 @@ const ProductDetails = () => {
                         <Card.Text style={{ fontSize: '14px', margin: '10px 0', color: '#333' }}>
                             Size:
                             <div style={{ marginTop: '5px' }}>
-                                {['36', '40', '41','43'].map((sizeOption) => (
+                                {/* {product.sizes.map((sizeOption) => (
                                     <Button
                                         key={sizeOption}
                                         variant={size === sizeOption ? 'primary' : 'outline-primary'}
@@ -56,13 +78,13 @@ const ProductDetails = () => {
                                     >
                                         {sizeOption}
                                     </Button>
-                                ))}
+                                ))} */}
                             </div>
                         </Card.Text>
                         <Card.Text style={{ fontSize: '14px', margin: '10px 0', color: '#333' }}>
                             Color:
-                            <div style={{ marginTop: '5px' }}>
-                                {['white', 'black','grey'].map((colorOption) => (
+                            {/* <div style={{ marginTop: '5px' }}>
+                                {product.color.map((colorOption) => (
                                     <Button
                                         key={colorOption}
                                         variant={color === colorOption ? 'primary' : 'outline-primary'}
@@ -72,16 +94,20 @@ const ProductDetails = () => {
                                         {colorOption.charAt(0).toUpperCase() + colorOption.slice(1)}
                                     </Button>
                                 ))}
-                            </div>
+                            </div> */}
                         </Card.Text>
                         <Card.Text style={{ fontSize: '14px' }}>
-                            Description: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque debitis sequi laboriosam repudiandae ab. Cupiditate facere, doloremque accusantium quo explicabo at nulla quam quia corporis, non laudantium odit veritatis ex!
+                            Description:{product.description}
                         </Card.Text>
                         <Button variant="primary" style={{ width: '100%', backgroundColor: 'black', color: 'white', outline: 'none', border: 'none' }}>Add to Cart</Button>
-                        </Card.Body>
+                    </Card.Body>
                 </Card>
             </div>
+        
         </div>
+
+        </div>
+                                
     );
 };
 

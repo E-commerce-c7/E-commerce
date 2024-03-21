@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Login = () => {
+const Login = ({changeView}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -18,7 +18,7 @@ const Login = () => {
     };
 
     const handleSignUp = () => {
-        // Add your sign up logic here
+       changeView('singup')
     };
 
     return (

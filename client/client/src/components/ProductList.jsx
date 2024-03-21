@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import OneProduct from './OnePrduct.jsx';
 
-const ProductList = ({ products, changeView }) => {
+const ProductList = ({ products, changeView,getOne,name }) => {
   const [sizeFilter, setSizeFilter] = useState([]);
   const [colorFilter, setColorFilter] = useState([]);
   const [brandFilter, setBrandFilter] = useState('');
@@ -26,7 +26,7 @@ const ProductList = ({ products, changeView }) => {
     setBrandFilter(brand);
   };
 
-  const filteredProducts = products.filter((product) => {
+  const filteredProducts = products ? products.filter((product) => {
     if (sizeFilter.length > 0 && !sizeFilter.includes(product.size)) {
       return false;
     }
@@ -37,11 +37,11 @@ const ProductList = ({ products, changeView }) => {
       return false;
     }
     return true;
-  });
+  }) : [];
 
   return (
     <div style={{ fontFamily: 'Arial, sans-serif' }}>
-      <h1 style={{ textAlign: 'center', margin: '20px 0', background: '#685F58', color: 'white', padding: '10px', marginLeft: '20px', marginRight: '20px' }}>KIDS</h1>
+      <h1 style={{ textAlign: 'center', margin: '20px 0', background: '#685F58', color: 'white', padding: '10px', marginLeft: '20px', marginRight: '20px' }}>{name}</h1>
       <div className="product-list" style={{ display: 'flex', margin: '0 auto', gap: '20px', maxWidth: '1200px', padding: '0 20px' }}>
         <div style={{ flex: '20%', borderRight: '1px solid #ccc', paddingRight: '10px' }}>
           <div style={{ marginBottom: '10px' }}>
@@ -117,11 +117,9 @@ const ProductList = ({ products, changeView }) => {
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
             {filteredProducts.map((product) => (
               <OneProduct
-                key={product.id}
-                photo={product.image}
-                name={product.name}
-                price={product.price}
+                product={product}
                 changeView={changeView}
+                getOne={getOne}
               />
             ))}
           </div>
