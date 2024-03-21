@@ -121,10 +121,13 @@ const App = () => {
       {view === 'main' && <>
         <LandingPage changeView={changeView}/>
         <Card changeView={changeView} />
+        <div style={{ marginBottom: '20px' }}></div>
+            <h1 style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center', fontFamily: 'Arial', color: 'grey' }}>FEATURED PRODUCTS</h1>
+            <div style={{ marginBottom: '20px' }}></div>
         <Featured />
         </>
       }
-      {view === 'productDetails' && <ProductDetails changeView={changeView} product={product} id={id} />}
+      {view === 'productDetails' && <ProductDetails changeView={changeView} OnePrduct={OnePrduct} id={id} />}
       {view === 'addProduct' && <PostProduct />}
       {view === 'login' && <Login changeView={changeView} />}
       {view === 'singup' && <SingUp />}
