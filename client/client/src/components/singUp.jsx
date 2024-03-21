@@ -4,6 +4,7 @@ function singUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setname] = useState('');
+    const [role, setRole] = useState('');
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -14,6 +15,10 @@ function singUp() {
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
+    };
+
+    const handleRoleChange = (e) => {
+        setRole(e.target.value);
     };
 
     const handleSubmit = (e) => {
@@ -31,7 +36,7 @@ function singUp() {
                 <h2>Sing Up</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                    <label htmlFor="name">name</label>
+                        <label htmlFor="name">Name</label>
                         <input
                             type="name"
                             id="name"
@@ -40,7 +45,8 @@ function singUp() {
                             required
                             className="form-control"
                         />
-                   
+                    </div>
+                    <div className="form-group">
                         <label htmlFor="email">Email</label>
                         <input
                             type="email"
@@ -50,6 +56,20 @@ function singUp() {
                             required
                             className="form-control"
                         />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="role">Role</label>
+                        <select
+                            id="role"
+                            value={role}
+                            onChange={handleRoleChange}
+                            required
+                            className="form-control"
+                        >
+                            <option value="">Select Option</option>
+                            <option value="seller">Seller</option>
+                            <option value="user">User</option>
+                        </select>
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
@@ -62,13 +82,14 @@ function singUp() {
                             className="form-control"
                         />
                     </div>
-                   
                     <button type="button" className="btn btn-secondary" style={{ marginTop: '10px', justifyContent: 'center', backgroundColor: 'black', color: 'white', marginLeft: 'auto', marginRight: 'auto', display: 'block', border: 'none' }} onClick={handleSignUp}>Sign Up</button>
                 </form>
             </div>
         </div>
     );
 };
+
+
 
 
 export default singUp

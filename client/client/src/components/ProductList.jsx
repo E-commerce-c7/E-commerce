@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect} from 'react';
 import OneProduct from './OnePrduct.jsx';
 
 const ProductList = ({ products, changeView,getOne,name }) => {
   const [sizeFilter, setSizeFilter] = useState([]);
   const [colorFilter, setColorFilter] = useState([]);
   const [brandFilter, setBrandFilter] = useState('');
+  const [product, setProduct] = useState([]);
 
+
+  useEffect(()=>{
+    filter()
+  },[sizeFilter,colorFilter,brandFilter])
   const handleSizeFilterChange = (size) => {
     if (sizeFilter.includes(size)) {
       setSizeFilter(sizeFilter.filter((s) => s !== size));
@@ -22,10 +27,11 @@ const ProductList = ({ products, changeView,getOne,name }) => {
     }
   };
 
+  
   const handleBrandFilterChange = (brand) => {
     setBrandFilter(brand);
   };
-
+  
   const filteredProducts = products ? products.filter((product) => {
     if (sizeFilter.length > 0 && !sizeFilter.includes(product.size)) {
       return false;
@@ -38,6 +44,14 @@ const ProductList = ({ products, changeView,getOne,name }) => {
     }
     return true;
   }) : [];
+  const filter = ()=>{
+   let data = filteredProducts.filter((product)=>{
+      return product.sex===name
+    })
+    setProduct(data)
+    console.log(data);
+  }
+
 
   return (
     <div style={{ fontFamily: 'Arial, sans-serif' }}>
@@ -115,7 +129,7 @@ const ProductList = ({ products, changeView,getOne,name }) => {
         </div>
         <div style={{ flex: '80%', paddingLeft: '10px' }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-            {filteredProducts.map((product) => (
+            {product.map((product) => (
               <OneProduct
                 product={product}
                 changeView={changeView}

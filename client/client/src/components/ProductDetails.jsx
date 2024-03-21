@@ -1,29 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button } from 'react-bootstrap';
 
-const ProductDetails = (props) => {
-    console.log(props);
+const ProductDetails = ({OnePrduct}) => {
+    console.log(OnePrduct);
     const [quantity, setQuantity] = useState('0');
     const [size, setSize] = useState('');
     const [color, setColor] = useState('');
-    const [product, setProduct] = useState({});
-    const [toogle, setToogle] = useState(false);
+  
 
-    useEffect(() => {
-       filter()
-       
-    }, [toogle]);
-
-    const filter = async ()=>{
-        if (!props.product) return console.log('no product')
-        const data = props.product.filter((item)=>{
-            return item.id === props.id
-        })
-            console.log('filter',data);
-            setProduct(data)
-            setToogle(true)
-            
-        }
+  
         
        
     const handleQuantityChange = (event) => {
@@ -50,14 +35,14 @@ const ProductDetails = (props) => {
         <div style={{ display: 'flex', alignItems: 'center', margin: '0 auto', maxWidth: '800px' }}>
         
             <div style={{ flex: '1', borderRight: '1px solid #ccc', padding: '10px' }}>
-                <img src={product.image} alt="Product Image" style={{ width: '100%', height: 'auto', borderRadius: '10%' }} />
+                <img src={OnePrduct.image} alt="Product Image" style={{ width: '100%', height: 'auto', borderRadius: '10%' }} />
             </div>
             <div style={{ flex: '2', padding: '10px', display: 'flex', fontFamily: 'Arial, sans-serif', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <Card>
                     <Card.Body style={{ fontFamily: 'Arial, sans-serif' }}>
-                        <Card.Title style={{ fontSize: '26px', fontWeight: 'bold' }}>{product.name}</Card.Title>
+                        <Card.Title style={{ fontSize: '26px', fontWeight: 'bold' }}>{OnePrduct.name}</Card.Title>
                         <Card.Text style={{ fontSize: '18px', fontWeight: 'bold' }}>
-                            Price: ${product.price} 
+                            Price: ${OnePrduct.price} 
                         </Card.Text>
                         <Card.Text style={{ fontSize: '13px', fontWeight: '' }}>
                             Seller: John Doe
@@ -69,7 +54,7 @@ const ProductDetails = (props) => {
                         <Card.Text style={{ fontSize: '14px', margin: '10px 0', color: '#333' }}>
                             Size:
                             <div style={{ marginTop: '5px' }}>
-                                {/* {product.sizes.map((sizeOption) => (
+                                {/* {OnePrduct && OnePrduct.sizes.map((sizeOption) => (
                                     <Button
                                         key={sizeOption}
                                         variant={size === sizeOption ? 'primary' : 'outline-primary'}
@@ -83,8 +68,8 @@ const ProductDetails = (props) => {
                         </Card.Text>
                         <Card.Text style={{ fontSize: '14px', margin: '10px 0', color: '#333' }}>
                             Color:
-                            {/* <div style={{ marginTop: '5px' }}>
-                                {product.color.map((colorOption) => (
+                            <div style={{ marginTop: '5px' }}>
+                                {/* {OnePrduct && OnePrduct.color.map((colorOption) => (
                                     <Button
                                         key={colorOption}
                                         variant={color === colorOption ? 'primary' : 'outline-primary'}
@@ -93,11 +78,11 @@ const ProductDetails = (props) => {
                                     >
                                         {colorOption.charAt(0).toUpperCase() + colorOption.slice(1)}
                                     </Button>
-                                ))}
-                            </div> */}
+                                ))} */}
+                            </div>
                         </Card.Text>
                         <Card.Text style={{ fontSize: '14px' }}>
-                            Description:{product.description}
+                            Description:{OnePrduct.description}
                         </Card.Text>
                         <Button variant="primary" style={{ width: '100%', backgroundColor: 'black', color: 'white', outline: 'none', border: 'none' }}>Add to Cart</Button>
                     </Card.Body>
