@@ -23,16 +23,20 @@ export default function NavBar({ changeView, isLogged, user,logout}) {
             <Dropdown
               arrowIcon={false}
               inline
-              label={<Avatar alt="User settings" img="" rounded />}
+              label={<Avatar alt="User settings" img={user.image || ""} rounded />}
             >
               <Dropdown.Header>
                 <span className="block text-sm">{user.name}</span>
                 <span className="block truncate text-sm font-medium">{user.email}</span>
               </Dropdown.Header>
-              <Dropdown.Item>Dashboard</Dropdown.Item>
-              {user.role === 'seller' && <Dropdown.Item onClick={handleAddProductClick}>Add Product</Dropdown.Item>}
+              {user.role === 'seller' && (
+                <>
+                  <Dropdown.Item onClick={()=>changeView('dashboard', 0, 'men')} >Dashboard</Dropdown.Item>
+                  <Dropdown.Item onClick={handleAddProductClick}>Add Product</Dropdown.Item>
+                </>
+              )}
               <Dropdown.Item onClick={handleCartClick}>Cart</Dropdown.Item>
-
+            
               <Dropdown.Divider />
               <Dropdown.Item onClick={()=>{logout()}}>Sign out</Dropdown.Item>
             </Dropdown>
@@ -43,16 +47,13 @@ export default function NavBar({ changeView, isLogged, user,logout}) {
         </div>
         <div className="justify-center">
           <Navbar.Collapse className="justify-center">
-            {/* <Navbar.Link href="#" active style={{ textDecoration: 'none', margin: '0 auto', marginRight: '15px' }}>
-              Homedsqdqsdqsdqs
-            </Navbar.Link> */}
-            <Navbar.Link href="#" style={{ textDecoration: 'none', margin: '0 auto', marginRight: '15px' }}>
+            <Navbar.Link href="#" style={{ textDecoration: 'none', margin: '0 auto', marginRight: '15px' }} onClick={()=>changeView('productList', 0, 'men')}>
               Men
             </Navbar.Link>
-            <Navbar.Link href="#" style={{ textDecoration: 'none', margin: '0 auto', marginRight: '15px' }}>
+            <Navbar.Link href="#" style={{ textDecoration: 'none', margin: '0 auto', marginRight: '15px' }} onClick={()=>changeView('productList', 0, 'women')}>
               Women
             </Navbar.Link>
-            <Navbar.Link href="#" style={{ textDecoration: 'none', margin: '0 auto', marginRight: '15px' }}>
+            <Navbar.Link href="#" style={{ textDecoration: 'none', margin: '0 auto', marginRight: '15px' }} onClick={()=>changeView('productList', 0, 'kids')}>
               Kids
             </Navbar.Link>
           </Navbar.Collapse>

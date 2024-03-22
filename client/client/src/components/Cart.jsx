@@ -1,6 +1,11 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 
-const Cart = ({cart}) => {
+const Cart = ({cart,getCart,user}) => {
+        useEffect(()=>{
+            getCart(user.id)
+        },[])
+
+
     const items = cart
     
 
