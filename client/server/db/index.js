@@ -54,6 +54,7 @@ const Product = sequelize.define('product', {
         type: DataTypes.FLOAT,
         allowNull: false
     },
+  
     color: {
         type: DataTypes.JSON,
         allowNull: false,

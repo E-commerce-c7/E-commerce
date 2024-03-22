@@ -103,7 +103,7 @@ const getCart = (id)=>{
         <Featured />
         </>
       }
-      {view === 'productDetails' && <ProductDetails getCart={getCart}  addToCart={addToCart} user={user} changeView={changeView} OnePrduct={OnePrduct} id={id} />}
+      {view === 'productDetails' && <ProductDetails  isLogged={isLogged} getCart={getCart}  addToCart={addToCart} user={user} changeView={changeView} OnePrduct={OnePrduct} id={id} />}
       {view === 'addProduct' && <PostProduct />}
       {view === 'login' && <Login error={error} login={login} changeView={changeView} />}
       {view === 'singup' && <SingUp  changeView={changeView} singUp={singUp}/>}
