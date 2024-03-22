@@ -12,9 +12,10 @@ import Cart from "./components/Cart.jsx";
 import axios from 'axios'
 import Login from "./components/login.jsx";
 import SingUp from "./components/singUp.jsx";
+import Dashboard from "./components/dashboard.jsx";
 
 const App = () => {
-  const [view, setView] = useState('login');
+  const [view, setView] = useState('main');
   const [product,setProduct] = useState([])
   const [OnePrduct,setOneProduct] = useState({})
   const [key,setKey] = useState('')
@@ -92,7 +93,7 @@ const getCart = (id)=>{
       <Navbar style={{ width: '50%' }} logout={logout} user={user} isLogged={isLogged} changeView={changeView} />
     
       {view === 'productList' && <ProductList changeView={changeView} getOne={getOne} name={key} products={product} />}
-      {view === 'cart' && <Cart cart={cart} />}
+      {view === 'cart' && <Cart user={user}  getCart={getCart} cart={cart} />}
       {view === 'main' && <>
         <LandingPage changeView={changeView}/>
         <Card changeView={changeView} />
@@ -102,10 +103,11 @@ const getCart = (id)=>{
         <Featured />
         </>
       }
-      {view === 'productDetails' && <ProductDetails addToCart={addToCart} user={user} changeView={changeView} OnePrduct={OnePrduct} id={id} />}
+      {view === 'productDetails' && <ProductDetails getCart={getCart}  addToCart={addToCart} user={user} changeView={changeView} OnePrduct={OnePrduct} id={id} />}
       {view === 'addProduct' && <PostProduct />}
       {view === 'login' && <Login error={error} login={login} changeView={changeView} />}
-      {view === 'singup' && <SingUp  singUp={singUp}/>}
+      {view === 'singup' && <SingUp  changeView={changeView} singUp={singUp}/>}
+      {view === 'dashboard' && <Dashboard  product={product} changeView={changeView} singUp={singUp}/>}
       
       <FooTer />
     </div>

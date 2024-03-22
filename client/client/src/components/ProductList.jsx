@@ -4,13 +4,18 @@ import OneProduct from './OnePrduct.jsx';
 const ProductList = ({ products, changeView,getOne,name }) => {
   const [sizeFilter, setSizeFilter] = useState([]);
   const [colorFilter, setColorFilter] = useState([]);
-  const [brandFilter, setBrandFilter] = useState('');
+  const [brandFilter, setBrandFilter] = useState('e');
   const [product, setProduct] = useState([]);
+  const [toogle,setToogle] = useState(false)
+  const [sizes, setSizes] = useState([]);
+  const [colors, setColors] = useState([]);
+  const [brands, setBrands] = useState([]);
 
 
   useEffect(()=>{
     filter()
-  },[sizeFilter,colorFilter,brandFilter])
+  },[sizeFilter,colorFilter,brandFilter,filteredProducts])
+
   const handleSizeFilterChange = (size) => {
     if (sizeFilter.includes(size)) {
       setSizeFilter(sizeFilter.filter((s) => s !== size));
@@ -20,10 +25,10 @@ const ProductList = ({ products, changeView,getOne,name }) => {
   };
 
   const handleColorFilterChange = (color) => {
-    if (colorFilter.includes(color)) {
-      setColorFilter(colorFilter.filter((c) => c !== color));
+    if (colorFilter.includes(color.toLowerCase())) {
+      setColorFilter(colorFilter.filter((c) => c !== color.toLowerCase()));
     } else {
-      setColorFilter([...colorFilter, color]);
+      setColorFilter([...colorFilter, color.toLowerCase()]);
     }
   };
 
@@ -33,13 +38,13 @@ const ProductList = ({ products, changeView,getOne,name }) => {
   };
   
   const filteredProducts = products ? products.filter((product) => {
-    if (sizeFilter.length > 0 && !sizeFilter.includes(product.size)) {
+    if (sizeFilter.length > 0 && !product.sizes.some(size => sizeFilter.includes(size))) {
       return false;
     }
-    if (colorFilter.length > 0 && !colorFilter.includes(product.color)) {
+    if (colorFilter.length > 0 && !product.color.some(color => colorFilter.includes(color.toLowerCase()))) {
       return false;
     }
-    if (brandFilter && product.brand !== brandFilter) {
+    if (brandFilter && !product.brand.some(brand => brandFilter.includes(brand.toLowerCase()))) {
       return false;
     }
     return true;
@@ -48,10 +53,27 @@ const ProductList = ({ products, changeView,getOne,name }) => {
    let data = filteredProducts.filter((product)=>{
       return product.sex===name
     })
+    setBrandFilter('Adidas')
     setProduct(data)
+    setBrandFilter('')
     console.log(data);
+
+    let sizesSet = new Set();
+    let colorsSet = new Set();
+    let brandsSet = new Set();
+  
+    data.forEach(product => {
+      product.sizes.forEach(size => sizesSet.add(size));
+      product.color.forEach(color => colorsSet.add(color));
+      product.brand.forEach(brand => brandsSet.add(brand)); 
+    });
+  
+    setSizes(Array.from(sizesSet).sort((a, b) => parseInt(a) - parseInt(b)));
+    setColors(Array.from(colorsSet));
+    setBrands(Array.from(brandsSet));
   }
 
+  
 
   return (
     <div style={{ fontFamily: 'Arial, sans-serif' }}>
@@ -63,7 +85,7 @@ const ProductList = ({ products, changeView,getOne,name }) => {
             <div>
               <p style={{ fontWeight: 'bold' }}>Size:</p>
               <div>
-                {['X', 'XL', 'S', 'L', 'M'].map((size) => (
+                {sizes.map((size) => (
                   <div key={size}>
                     <label style={{ display: 'flex', alignItems: 'center', margin: '5px 0', marginLeft: '10px' }}>
                       <input
@@ -82,12 +104,13 @@ const ProductList = ({ products, changeView,getOne,name }) => {
             <div>
               <p style={{ fontWeight: 'bold' }}>Color:</p>
               <div>
-                {['White', 'Black', 'Pink', 'Red', 'Purple'].map((color) => (
+                { products && colors.map((color) => (
                   <div key={color}>
                     <label style={{ display: 'flex', alignItems: 'center', margin: '5px 0', marginLeft: '10px' }}>
                       <input
                         type="checkbox"
                         value={color}
+                        
                         checked={colorFilter.includes(color)}
                         onChange={() => handleColorFilterChange(color)}
                         style={{ marginRight: '5px' }}

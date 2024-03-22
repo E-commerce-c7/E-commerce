@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button } from 'react-bootstrap';
 
-const ProductDetails = ({OnePrduct,user,addToCart}) => {
+const ProductDetails = ({OnePrduct,user,addToCart,getCart}) => {
     console.log('dddd',OnePrduct);
     const [quantity, setQuantity] = useState(1);
     const [size, setSize] = useState('');
     const [color, setColor] = useState('');
     const [image, setImage] = useState(OnePrduct);
     const [id,setId] = useState(user.id)
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
         
        
@@ -85,7 +87,13 @@ const ProductDetails = ({OnePrduct,user,addToCart}) => {
                         <Card.Text style={{ fontSize: '14px' }}>
                             Description:{OnePrduct.description}
                         </Card.Text>
-                        <Button variant="primary" style={{ width: '100%', backgroundColor: 'black', color: 'white', outline: 'none', border: 'none' }} onClick={()=>{addToCart({name:OnePrduct.name,image:OnePrduct.image,price:OnePrduct.price,quantity:quantity,userId:id})}}>Add to Cart</Button>
+                        <Button variant="primary" style={{ width: '100%', backgroundColor: 'black', color: 'white', outline: 'none', border: 'none' }} onClick={()=>{
+                            addToCart({name:OnePrduct.name,image:OnePrduct.image,price:OnePrduct.price,quantity:quantity,userId:id}), 
+                            getCart(id)
+                            setSuccessMessage('Product has been added successfully to the cart');
+                        }
+                            }>Add to Cart</Button>
+                            {successMessage && <p style={{ color: 'green', fontSize: '20px' }}>{successMessage}</p>}
                     </Card.Body>
                 </Card>
             </div>
