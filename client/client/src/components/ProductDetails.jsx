@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button } from 'react-bootstrap';
 
-const ProductDetails = ({OnePrduct}) => {
-    console.log(OnePrduct);
-    const [quantity, setQuantity] = useState('0');
+const ProductDetails = ({OnePrduct,user,addToCart}) => {
+    console.log('dddd',OnePrduct);
+    const [quantity, setQuantity] = useState(1);
     const [size, setSize] = useState('');
     const [color, setColor] = useState('');
-  
+    const [image, setImage] = useState(OnePrduct);
+    const [id,setId] = useState(user.id)
 
-  
         
        
     const handleQuantityChange = (event) => {
@@ -22,13 +22,14 @@ const ProductDetails = ({OnePrduct}) => {
                 break;
             case 'color':
                 setColor(value);
+                
+              
                 break;
             default:
                 break;
         }
     };
 
-    
     
 
     return ( <div>
@@ -49,12 +50,12 @@ const ProductDetails = ({OnePrduct}) => {
                         </Card.Text>
                         <Card.Text style={{ fontSize: '14px', fontWeight: 'bold' }}>Stock: Available</Card.Text> {/* Added stock variable */}
                         <Card.Text style={{ fontSize: '14px', border: 'none', marginBottom: '5px' }}>
-                            Quantity: <input type="number" value={quantity} onChange={handleQuantityChange} style={{ width: '50px', fontSize: '14px' }} />
+                            Quantity: <input type="number" value={quantity} onChange={handleQuantityChange} style={{ width: '50px', fontSize: '14px', width: '100px' }} />
                         </Card.Text>
                         <Card.Text style={{ fontSize: '14px', margin: '10px 0', color: '#333' }}>
                             Size:
                             <div style={{ marginTop: '5px' }}>
-                                {/* {OnePrduct && OnePrduct.sizes.map((sizeOption) => (
+                                {OnePrduct.sizes && OnePrduct.sizes.map((sizeOption) => (
                                     <Button
                                         key={sizeOption}
                                         variant={size === sizeOption ? 'primary' : 'outline-primary'}
@@ -63,13 +64,13 @@ const ProductDetails = ({OnePrduct}) => {
                                     >
                                         {sizeOption}
                                     </Button>
-                                ))} */}
+                                ))}
                             </div>
                         </Card.Text>
                         <Card.Text style={{ fontSize: '14px', margin: '10px 0', color: '#333' }}>
                             Color:
                             <div style={{ marginTop: '5px' }}>
-                                {/* {OnePrduct && OnePrduct.color.map((colorOption) => (
+                                {OnePrduct.color && OnePrduct.color.map((colorOption) => (
                                     <Button
                                         key={colorOption}
                                         variant={color === colorOption ? 'primary' : 'outline-primary'}
@@ -78,13 +79,13 @@ const ProductDetails = ({OnePrduct}) => {
                                     >
                                         {colorOption.charAt(0).toUpperCase() + colorOption.slice(1)}
                                     </Button>
-                                ))} */}
+                                ))}
                             </div>
                         </Card.Text>
                         <Card.Text style={{ fontSize: '14px' }}>
                             Description:{OnePrduct.description}
                         </Card.Text>
-                        <Button variant="primary" style={{ width: '100%', backgroundColor: 'black', color: 'white', outline: 'none', border: 'none' }}>Add to Cart</Button>
+                        <Button variant="primary" style={{ width: '100%', backgroundColor: 'black', color: 'white', outline: 'none', border: 'none' }} onClick={()=>{addToCart({name:OnePrduct.name,image:OnePrduct.image,price:OnePrduct.price,quantity:quantity,userId:id})}}>Add to Cart</Button>
                     </Card.Body>
                 </Card>
             </div>

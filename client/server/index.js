@@ -3,12 +3,14 @@ let app = express();
 const cors=require('cors')
 const db = require ("./db/index.js")
 const ProductRoutes = require('./routes/Product.routes.js');
-const UserRoute = require('./routes/User.routes.js');
+const UserRoute = require('./routes/User.routes.js')
+const cartRoutes = require('./routes/Cart.routes.js');
 app.use(express.static(__dirname + "/../client/dist"));
 app.use(express.json());
 app.use(cors())
-app.use('/api/users', UserRoute);
+app.use('/api/user', UserRoute);
 app.use('/api/product', ProductRoutes);
+app.use('/api/cart', cartRoutes);
 let port = 3000;
 
 

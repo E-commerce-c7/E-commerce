@@ -1,11 +1,8 @@
 import React from 'react';
 
-const Cart = () => {
-    const items = [
-        { id: 1, name: 'Product 1', price: 10, quantity: 2, image: 'https://demo.evershop.io/assets/catalog/5800/1660/plv5407-Black-list.png' },
-        { id: 2, name: 'Product 2', price: 15, quantity: 1, image: 'https://demo.evershop.io/assets/catalog/8247/2126/plv1439-White-list.png' },
-        { id: 3, name: 'Product 3', price: 20, quantity: 3, image: 'https://demo.evershop.io/assets/catalog/1034/3600/plv7632-Green-list.png' },
-    ];
+const Cart = ({cart}) => {
+    const items = cart
+    
 
     const totalPrice = items.reduce((total, item) => total + item.price * item.quantity, 0);
 

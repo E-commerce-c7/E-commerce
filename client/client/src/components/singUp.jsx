@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-function singUp() {
+function singUp({singUp}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setname] = useState('');
     const [role, setRole] = useState('');
-
+    const [image, setImage] = useState('');
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
     };
@@ -23,11 +23,12 @@ function singUp() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Add your login logic here
+        singUp({ email, password, name, role, image });
     };
 
     const handleSignUp = () => {
-        // Add your sign up logic here
+        console.log({ email, password, name, role, image });
+        singUp({ email, password, name, role, image });
     };
 
     return (

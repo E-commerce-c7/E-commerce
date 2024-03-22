@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Login = ({changeView}) => {
+const Login = ({changeView,login,error}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -14,7 +14,9 @@ const Login = ({changeView}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Add your login logic here
+        console.log({ email, password });
+      login({ email, password })
+      console.log(error);
     };
 
     const handleSignUp = () => {
@@ -48,6 +50,7 @@ const Login = ({changeView}) => {
                             className="form-control"
                         />
                     </div>
+                    {error && <p style={{color:'red'}}>{error}</p>}
                     <button type="submit" className="btn btn-primary" style={{ marginTop: '10px', justifyContent: 'center', backgroundColor: 'black', color: 'white', marginLeft: 'auto', marginRight: 'auto', display: 'block', border: 'none' }}>Login</button>
                     <p style={{ fontSize: '16px', marginTop: '10px' }}>no account sign up!</p>
                     <button type="button" className="btn btn-secondary" style={{ marginTop: '10px', justifyContent: 'center', backgroundColor: 'black', color: 'white', marginLeft: 'auto', marginRight: 'auto', display: 'block', border: 'none' }} onClick={handleSignUp}>Sign Up</button>
