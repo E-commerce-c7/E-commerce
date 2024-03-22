@@ -18,14 +18,17 @@ const App = () => {
   const [product,setProduct] = useState([])
   const [OnePrduct,setOneProduct] = useState({})
   const [key,setKey] = useState('')
- 
   const [id,setId] = useState(0)
+  const [user,setUser] = useState({})
+  const [error,setError] = useState('')
+  const [isLogged,setIsLogged] = useState(false)
+  const [cart,setCart] = useState([])
 
  
   useEffect(()=>{
-    
     fetch()
-  },[])
+    getCart(user.id)
+  },[isLogged])
   const changeView = (option,id,key) => {
     setKey(key)
     setId(id)
@@ -43,15 +46,53 @@ const App = () => {
       setOneProduct(res.data)
     })
   }
+  const singUp = (obj)=>{
+    axios.post('http://localhost:3000/api/user/register',obj).then((res)=>{
+      console.log(res.data);
+    })
+  }
+
+  const login = (obj)=>{
+    axios.post('http://localhost:3000/api/user/',obj).then((res)=>{
+      console.log(res.data);
+      setUser(res.data.user)
+      setView('main')
+      setError('')
+      setIsLogged(true)
+      return res
+  }).catch((err)=>{
+    setError('Invalid email or password')
+    return err
+  
+  })
+}
+const logout = ()=>{
+  setIsLogged(false)
+  setUser({})
+  setView('login')
+}
+
+const addToCart = (obj)=>{
+  axios.post(`http://localhost:3000/api/cart/`,obj).then((res)=>{
+    console.log(res.data);
+}).catch((err)=>{
+  console.log(err);
+})
+}
 
 
-
+const getCart = (id)=>{
+  axios.get(`http://localhost:3000/api/cart/${id}`).then((res)=>{
+    console.log('dsq',res.data);
+    setCart(res.data)
+})
+}
   return (
     <div style={{}}>
-      <Navbar style={{ width: '50%' }} changeView={changeView} />
+      <Navbar style={{ width: '50%' }} logout={logout} user={user} isLogged={isLogged} changeView={changeView} />
     
       {view === 'productList' && <ProductList changeView={changeView} getOne={getOne} name={key} products={product} />}
-      {view === 'cart' && <Cart />}
+      {view === 'cart' && <Cart cart={cart} />}
       {view === 'main' && <>
         <LandingPage changeView={changeView}/>
         <Card changeView={changeView} />
@@ -61,10 +102,10 @@ const App = () => {
         <Featured />
         </>
       }
-      {view === 'productDetails' && <ProductDetails changeView={changeView} OnePrduct={OnePrduct} id={id} />}
+      {view === 'productDetails' && <ProductDetails addToCart={addToCart} user={user} changeView={changeView} OnePrduct={OnePrduct} id={id} />}
       {view === 'addProduct' && <PostProduct />}
-      {view === 'login' && <Login changeView={changeView} />}
-      {view === 'singup' && <SingUp />}
+      {view === 'login' && <Login error={error} login={login} changeView={changeView} />}
+      {view === 'singup' && <SingUp  singUp={singUp}/>}
       
       <FooTer />
     </div>

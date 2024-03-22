@@ -2,39 +2,43 @@ import React from 'react'; // Import React
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import { CiShop } from "react-icons/ci";
 
-export default function NavBar(props) {
+export default function NavBar({ changeView, isLogged, user,logout}) {
   const handleCartClick = () => {
-    props.changeView('cart');
+    changeView('cart');
   };
 
   const handleAddProductClick = () => {
-    props.changeView('addProduct');
+    changeView('addProduct');
   };
 
   return (
-    <div >
+    <div>
       <Navbar fluid rounded className="my-navbar" style={{ marginTop: '0' }}>
         <Navbar.Brand>
-          <CiShop style={{ color: 'black', fontSize: '2rem' }} onClick={()=>props.changeView('main')} />
+          <CiShop style={{ color: 'black', fontSize: '2rem' }} onClick={() => changeView('main')} />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white"></span>
         </Navbar.Brand>
         <div className="flex md:order-2">
-          <Dropdown
-            arrowIcon={false}
-            inline
-            label={<Avatar alt="User settings" img="" rounded />}
-          >
-            <Dropdown.Header>
-              <span className="block text-sm">Bonnie Green</span>
-              <span className="block truncate text-sm font-medium">name@flowbite.com</span>
-            </Dropdown.Header>
-            <Dropdown.Item>Dashboard</Dropdown.Item>
-            <Dropdown.Item onClick={handleAddProductClick}>Add Product</Dropdown.Item>
-            <Dropdown.Item onClick={handleCartClick}>Cart</Dropdown.Item>
+          {isLogged ? (
+            <Dropdown
+              arrowIcon={false}
+              inline
+              label={<Avatar alt="User settings" img="" rounded />}
+            >
+              <Dropdown.Header>
+                <span className="block text-sm">{user.name}</span>
+                <span className="block truncate text-sm font-medium">{user.email}</span>
+              </Dropdown.Header>
+              <Dropdown.Item>Dashboard</Dropdown.Item>
+              {user.role === 'seller' && <Dropdown.Item onClick={handleAddProductClick}>Add Product</Dropdown.Item>}
+              <Dropdown.Item onClick={handleCartClick}>Cart</Dropdown.Item>
 
-            <Dropdown.Divider />
-            <Dropdown.Item>Sign out</Dropdown.Item>
-          </Dropdown>
+              <Dropdown.Divider />
+              <Dropdown.Item onClick={()=>{logout()}}>Sign out</Dropdown.Item>
+            </Dropdown>
+          ) : (
+            <button onClick={() => changeView('login')}>Log In</button>
+          )}
           <Navbar.Toggle />
         </div>
         <div className="justify-center">

@@ -13,12 +13,16 @@ const createCart = async (req, res) => {
 };
 
 // Read all Carts
-const getCarts = async (req, res) => {
+const getCart = async (req, res) => {
     try {
-         await db.Cart.findAll({}).then((Carts) => {
-
-             res.json(Carts);
-         })
+        const id = req.params.id;
+        await db.Cart.findAll({ where: { userId: id } }).then((cart) => {
+            if (cart) {
+                res.json(cart);
+            } else {
+                res.status(404).json({ error: 'Cart not found' });
+            }
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -59,7 +63,7 @@ const deleteCart = async (req, res) => {
 
 module.exports = {
     createCart,
-    getCarts,
+    getCart,
     updateCart,
     deleteCart,
 };

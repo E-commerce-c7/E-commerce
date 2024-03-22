@@ -1,6 +1,11 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { User } = require('../db/index');
+require('dotenv').config();
+
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secretfdfdsqf785897TIHFHKLVMHIFY-key'; // Provide a default value if process.env.JWT_SECRET is not set
+
+// ... existing code ...
 
 const register = async (req, res) => {
     try {
@@ -8,23 +13,23 @@ const register = async (req, res) => {
             name,
             email,
             password,
-            accountType,
-            picture
+            role,
+            image
         } = req.body;
 
-        const saltRounds =await bcrypt.genSalt();
+        const saltRounds = await bcrypt.genSalt();
         const passwordHash = await bcrypt.hash(password, saltRounds);
         const newUser = await User.create({
             name,
-            email,
             password: passwordHash,
-            accountType,
-            picture
+            email,
+            role,
+            image
         });
         const savedUser = newUser.toJSON();
         res.status(201).json(savedUser);
     } catch (error) {
-       throw error
+        throw error;
     }
 };
 
@@ -39,13 +44,15 @@ const login = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ msg: 'Invalid password' });
         }
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ id: user.id }, '$2b$10$FTam.ebOkfHvCnJO.MAcsOo1Sc4XpJx.e0IwsoOTHYXBKCFpPXwtC');
         const userData = user.toJSON();
         delete userData.password;
         res.status(200).json({ token, user: userData });
     } catch (error) {
-       throw error
+        throw error;
     }
 };
 
 module.exports = { register, login };
+ 
+

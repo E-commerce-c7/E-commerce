@@ -27,7 +27,8 @@ const User = sequelize.define('user', {
     },
     email: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     role: {
         type: DataTypes.ENUM('user', 'seller'),
@@ -101,7 +102,8 @@ const Cart = sequelize.define('cart', {
 // Establish the association between User and Product
 User.hasMany(Product);
 Product.belongsTo(User);
-
+User.hasOne(Cart);
+Cart.belongsTo(User);
 
 // Sync the models with the database
 // sequelize.sync({ force: true })
