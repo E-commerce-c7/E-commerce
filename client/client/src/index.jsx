@@ -80,6 +80,14 @@ const addToCart = (obj)=>{
   console.log(err);
 })
 }
+const addProduct = (obj)=>{
+  axios.post(`http://localhost:3000/api/product/`,obj).then((res)=>{
+    console.log(res.data);
+}).catch((err)=>{
+  console.log(err);
+})
+
+}
 
 
 const getCart = (id)=>{
@@ -88,6 +96,19 @@ const getCart = (id)=>{
     setCart(res.data)
 })
 }
+const deleteProduct = (id)=>{
+  axios.delete(`http://localhost:3000/api/product/${id}`).then((res)=>{
+    console.log(res.data);
+    fetch()
+})
+}
+  const updateProduct=(id,obj)=>{
+    axios.put(`http://localhost:3000/api/product/${id}`,obj).then((res)=>{
+      console.log(res.data);
+      fetch()
+  })
+  }
+
   return (
     <div style={{}}>
       <Navbar style={{ width: '50%' }} logout={logout} user={user} isLogged={isLogged} changeView={changeView} />
@@ -104,10 +125,10 @@ const getCart = (id)=>{
         </>
       }
       {view === 'productDetails' && <ProductDetails  isLogged={isLogged} getCart={getCart}  addToCart={addToCart} user={user} changeView={changeView} OnePrduct={OnePrduct} id={id} />}
-      {view === 'addProduct' && <PostProduct />}
+      {view === 'addProduct' && <PostProduct user={user}  addProduct={addProduct} changeView={changeView} />}
       {view === 'login' && <Login error={error} login={login} changeView={changeView} />}
       {view === 'singup' && <SingUp  changeView={changeView} singUp={singUp}/>}
-      {view === 'dashboard' && <Dashboard  product={product} changeView={changeView} singUp={singUp}/>}
+      {view === 'dashboard' && <Dashboard user={user} updateProduct={updateProduct}  deleteProduct={deleteProduct} product={product} changeView={changeView} singUp={singUp}/>}
       
       <FooTer />
     </div>

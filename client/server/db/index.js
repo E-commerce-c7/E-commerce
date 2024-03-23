@@ -69,15 +69,24 @@ const Product = sequelize.define('product', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    sex: {
+    gender: {
         type: DataTypes.ENUM('men', 'women', 'kids'),
         allowNull: false
     },
-    brand: {
-        type: DataTypes.JSON,
+    quantity: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        defaultValue: []
+        defaultValue: 1
+    },
+    brand: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    seller: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
+   
 });
 
 const Cart = sequelize.define('cart', {

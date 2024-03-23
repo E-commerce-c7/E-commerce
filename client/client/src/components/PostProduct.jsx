@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 
-const PostProduct = () => {
+const PostProduct = ({ addProduct, changeView, user }) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [image, setImage] = useState(null);
-    const [size, setSize] = useState('');
-    const [color, setColor] = useState('');
+    const [sizes, setSizes] = useState([]);
+    const [color, setColor] = useState([]);
     const [quantity, setQuantity] = useState(0);
     const [price, setPrice] = useState(0);
-    const [gender, setGender] = useState(''); // Added gender state
-    const [brand, setBrand] = useState(''); // Added brand state
+    const [gender, setGender] = useState('');
+    const [brand, setBrand] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [id, setId] = useState(user.id);
+    const [submitCount, setSubmitCount] = useState(0); // Added submitCount state
 
     const handleNameChange = (e) => {
         setName(e.target.value);
@@ -43,12 +45,12 @@ const PostProduct = () => {
         }
     };
 
-    const handleSizeChange = (e) => {
-        setSize(e.target.value);
+    const handleSizesChange = (e) => {
+        setSizes(Array.from(e.target.selectedOptions, (option) => option.value));
     };
 
     const handleColorChange = (e) => {
-        setColor(e.target.value);
+        setColor(Array.from(e.target.selectedOptions, (option) => option.value));
     };
 
     const handleQuantityChange = (e) => {
@@ -67,13 +69,27 @@ const PostProduct = () => {
         setBrand(e.target.value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission logic here
+        await addProduct({
+            name: name,
+            description: description,
+            price: price,
+            color: color,
+            sizes: sizes,
+            image: image,
+            gender: gender,
+            quantity: quantity,
+            brand: brand,
+            seller: user.name,
+            userId: id,
+        });
+        setSubmitCount(submitCount + 1); // Increment submitCount
+        changeView('main');
     };
 
     const colors = ['Red', 'Blue', 'Green', 'Yellow', 'Orange', 'Purple', 'Pink', 'Black', 'White', 'Gray'];
-    const sizes = ['37', '38', '39', '40', '41', '42', '43', '44'];
+    const sizess = ['37', '38', '39', '40', '41', '42', '43', '44'];
     const genders = ['Men', 'Women', 'Kids'];
 
     return (
@@ -89,11 +105,11 @@ const PostProduct = () => {
                 <label htmlFor="price" style={{ fontWeight: 'bold' }}>Price:</label>
                 <input type="number" id="price" value={price} onChange={handlePriceChange} style={{ padding: '5px', borderRadius: '5px', border: '1px solid gray' }} />
 
-                <label htmlFor="size" style={{ fontWeight: 'bold' }}>Size:</label>
-                <select id="size" value={size} onChange={handleSizeChange} style={{ padding: '5px', borderRadius: '5px', border: '1px solid gray' }}>
-                    {sizes.map((size) => (
-                        <option key={size} value={size}>
-                            {size}
+                <label htmlFor="sizes" style={{ fontWeight: 'bold' }}>Sizes:</label>
+                <select id="sizes" value={sizes} onChange={handleSizesChange} style={{ padding: '5px', borderRadius: '5px', border: '1px solid gray' }}>
+                    {sizess.map((sizes) => (
+                        <option key={sizes} value={sizes}>
+                            {sizes}
                         </option>
                     ))}
                 </select>
@@ -110,8 +126,8 @@ const PostProduct = () => {
                 <label htmlFor="quantity" style={{ fontWeight: 'bold' }}>Quantity:</label>
                 <input type="number" id="quantity" value={quantity} onChange={handleQuantityChange} style={{ padding: '5px', borderRadius: '5px', border: '1px solid gray' }} />
 
-                <label htmlFor="gender" style={{ fontWeight: 'bold' }}>Gender:</label> {/* Added gender label */}
-                <select id="gender" value={gender} onChange={handleGenderChange} style={{ padding: '5px', borderRadius: '5px', border: '1px solid gray' }}> {/* Added gender select */}
+                <label htmlFor="gender" style={{ fontWeight: 'bold' }}>Gender:</label>
+                <select id="gender" value={gender} onChange={handleGenderChange} style={{ padding: '5px', borderRadius: '5px', border: '1px solid gray' }}>
                     {genders.map((gender) => (
                         <option key={gender} value={gender}>
                             {gender}
@@ -119,13 +135,13 @@ const PostProduct = () => {
                     ))}
                 </select>
 
-                <label htmlFor="brand" style={{ fontWeight: 'bold' }}>Brand:</label> {/* Added brand label */}
-                <input type="text" id="brand" value={brand} onChange={handleBrandChange} style={{ padding: '5px', borderRadius: '5px', border: '1px solid gray' }} /> {/* Added brand input */}
+                <label htmlFor="brand" style={{ fontWeight: 'bold' }}>Brand:</label>
+                <input type="text" id="brand" value={brand} onChange={handleBrandChange} style={{ padding: '5px', borderRadius: '5px', border: '1px solid gray' }} />
 
                 <label htmlFor="image" style={{ fontWeight: 'bold' }}>Image:</label>
                 <Dropzone onDrop={handleImageDrop}>
                     {({ getRootProps, getInputProps }) => (
-                        <section style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px', border: '2px dashed #ddd', borderRadius: '5px', backgroundColor: '#f9f9f9', color: '#888', fontSize: '16px', cursor: 'pointer' }}>
+                        <section style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px', border: '2px dashed #ddd', borderRadius: '5px', backgroundColor: '#f9f9f9', color: '#888', fontSizes: '16px', cursor: 'pointer' }}>
                             <div {...getRootProps()}>
                                 <input {...getInputProps()} />
                                 {isLoading ? (
@@ -140,6 +156,7 @@ const PostProduct = () => {
 
                 <button type="submit" style={{ padding: '10px', backgroundColor: '#fff', color: '#000', border: '1px solid #000', borderRadius: '5px' }}>Submit</button>
             </form>
+            <div>{submitCount > 0 && <p>Form submitted successfully!</p>}</div> {/* Display success message */}
         </div>
     );
 };
