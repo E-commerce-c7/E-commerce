@@ -88,8 +88,6 @@ const addProduct = (obj)=>{
 })
 
 }
-
-
 const getCart = (id)=>{
   axios.get(`http://localhost:3000/api/cart/${id}`).then((res)=>{
     console.log('dsq',res.data);
@@ -108,13 +106,23 @@ const deleteProduct = (id)=>{
       fetch()
   })
   }
+  const destroyCart = (id)=>{
+    axios.delete(`http://localhost:3000/api/cart/destroy/${id}`).then((res)=>{
+      console.log(res.data);
+  })
+  }
+  const deleteFromCart= (id)=>{
+    axios.delete(`http://localhost:3000/api/cart/${id}`).then((res)=>{
+      console.log(res.data);
+  })
+  }
 
   return (
     <div style={{}}>
       <Navbar style={{ width: '50%' }} logout={logout} user={user} isLogged={isLogged} changeView={changeView} />
     
       {view === 'productList' && <ProductList changeView={changeView} getOne={getOne} name={key} products={product} />}
-      {view === 'cart' && <Cart user={user}  getCart={getCart} cart={cart} />}
+      {view === 'cart' && <Cart deleteFromCart={deleteFromCart} destroyCart={destroyCart} user={user}  getCart={getCart} cart={cart} />}
       {view === 'main' && <>
         <LandingPage changeView={changeView}/>
         <Card changeView={changeView} />

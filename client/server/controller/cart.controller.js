@@ -61,10 +61,25 @@ const deleteCart = async (req, res) => {
     }
 };
 
+const deleteAllCarts = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        await db.Cart.destroy({
+            where: { userId },
+           
+        });
+        res.json({ message: 'All Carts deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 module.exports = {
     createCart,
     getCart,
     updateCart,
     deleteCart,
+    deleteAllCarts,
 };
+
 
