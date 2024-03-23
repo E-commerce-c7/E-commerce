@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Card, Button } from 'react-bootstrap';
 
 const ProductDetails = ({ OnePrduct, user, addToCart, getCart,isLogged,changeView}) => {
-    console.log('dddd', OnePrduct);
     const [quantity, setQuantity] = useState(1);
     const [size, setSize] = useState('');
     const [color, setColor] = useState('');
@@ -10,11 +9,28 @@ const ProductDetails = ({ OnePrduct, user, addToCart, getCart,isLogged,changeVie
     const [id, setId] = useState(user.id);
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    // const [quantitycheck, setQuantityCheck] = useState('available');
+    // const [seller, setSeller] = useState('anonymous');
     console.log(isLogged);
+    console.log('dddd', OnePrduct.seller);
+    useEffect(() => {
+        // check();
+        // checkUser()
+        console.log('seller',OnePrduct.seller);
+    },[])
     const handleQuantityChange = (event) => {
         setQuantity(event.target.value);
     };
-
+    // const check = () => {
+    //     if (OnePrduct.quantity < 0) {
+    //         setQuantityCheck('Not available');
+    //     }
+    // }
+    // const checkUser = () => {
+    //     if(OnePrduct.seller){
+    //     setSeller(OnePrduct.seller);
+    // }
+    // }
     const handleAttributeChange = (attribute, value) => {
         switch (attribute) {
             case 'size':
@@ -53,9 +69,9 @@ const ProductDetails = ({ OnePrduct, user, addToCart, getCart,isLogged,changeVie
                                 Price: ${OnePrduct.price}
                             </Card.Text>
                             <Card.Text style={{ fontSize: '13px', fontWeight: '' }}>
-                                Seller: John Doe
+                                Seller: {OnePrduct.seller}
                             </Card.Text>
-                            <Card.Text style={{ fontSize: '14px', fontWeight: 'bold' }}>Stock: Available</Card.Text>
+                            <Card.Text style={{ fontSize: '14px', fontWeight: 'bold' }}>Stock: available</Card.Text>
                             <Card.Text style={{ fontSize: '14px', border: 'none', marginBottom: '5px' }}>
                                 Quantity: <input type="number" value={quantity} onChange={handleQuantityChange} style={{ width: '50px', fontSize: '14px', width: '100px' }} />
                             </Card.Text>
@@ -102,6 +118,7 @@ const ProductDetails = ({ OnePrduct, user, addToCart, getCart,isLogged,changeVie
             </div>
         </div>
     );
+
 };
 
 export default ProductDetails;
