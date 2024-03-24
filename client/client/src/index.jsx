@@ -24,16 +24,19 @@ const App = () => {
   const [error,setError] = useState('')
   const [isLogged,setIsLogged] = useState(false)
   const [cart,setCart] = useState([])
+  const [searched,setSearched] = useState('')
 
  
   useEffect(()=>{
     fetch()
     getCart(user.id)
   },[isLogged])
-  const changeView = (option,id,key) => {
+  const changeView = (option,id,key,searched) => {
     setKey(key)
     setId(id)
+    setSearched(searched)
     setView(option)
+
   };
   const fetch = ()=>{
     axios.get('http://localhost:3000/api/product/').then((res)=>{
@@ -116,31 +119,58 @@ const deleteProduct = (id)=>{
       console.log(res.data);
   })
   }
+  const signupEmailHandler = (e,name)=>{
+      axios.post('http://localhost:3000/api/email/',{
+        email:e,
+        html:`<h1> Hey ${name}Thank you for signing up</h1>`
+      }).then((res)=>{
+        console.log(res.data);
+      }  
+  )}
 
-  return (
-    <div style={{}}>
-      <Navbar style={{ width: '50%' }} logout={logout} user={user} isLogged={isLogged} changeView={changeView} />
+  const handleCartemail = (e,name,ammount)=>{
+    axios.post('http://localhost:3000/api/email/',{
+      email:e,
+      html:`<h1> Hey ${name}Thank you for buying from us, Your total is ${ammount}</h1>`
+    }).then((res)=>{
+      console.log(res.data);
+    })
+  }
+  const search = (key)=>{
+    // axios.get(`http://localhost:3000/api/product/search/${key}`).then((res)=>{
+    //   console.log(res.data);
+    //   setSearched(res.data)
+    // })
+    console.log(searched);
+    setSearched(key)
     
-      {view === 'productList' && <ProductList changeView={changeView} getOne={getOne} name={key} products={product} />}
-      {view === 'cart' && <Cart deleteFromCart={deleteFromCart} destroyCart={destroyCart} user={user}  getCart={getCart} cart={cart} />}
-      {view === 'main' && <>
-        <LandingPage changeView={changeView}/>
-        <Card changeView={changeView} />
-        <div style={{ marginBottom: '20px' }}></div>
+  }
+  
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <div style={{ flex: 1 }}>
+          <Navbar search={search} style={{ width: '50%' }} logout={logout} user={user} isLogged={isLogged} changeView={changeView} />
+
+          {view === 'productList' && <ProductList searched={searched} changeView={changeView} getOne={getOne} gender={key} products={product} />}
+          {view === 'cart' && <Cart handleCartemail={handleCartemail} deleteFromCart={deleteFromCart} destroyCart={destroyCart} user={user} getCart={getCart} cart={cart} />}
+          {view === 'main' && <>
+            <LandingPage changeView={changeView} />
+            <Card changeView={changeView} />
+            <div style={{ marginBottom: '20px' }}></div>
             <h1 style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center', fontFamily: 'Arial', color: 'grey' }}>FEATURED PRODUCTS</h1>
             <div style={{ marginBottom: '20px' }}></div>
-        <Featured />
-        </>
-      }
-      {view === 'productDetails' && <ProductDetails  isLogged={isLogged} getCart={getCart}  addToCart={addToCart} user={user} changeView={changeView} OnePrduct={OnePrduct} id={id} />}
-      {view === 'addProduct' && <PostProduct user={user}  addProduct={addProduct} changeView={changeView} />}
-      {view === 'login' && <Login error={error} login={login} changeView={changeView} />}
-      {view === 'singup' && <SingUp  changeView={changeView} singUp={singUp}/>}
-      {view === 'dashboard' && <Dashboard user={user} updateProduct={updateProduct}  deleteProduct={deleteProduct} product={product} changeView={changeView} singUp={singUp}/>}
-      
-      <FooTer />
-    </div>
+            <Featured />
+          </>}
+          {view === 'productDetails' && <ProductDetails isLogged={isLogged} getCart={getCart} addToCart={addToCart} user={user} changeView={changeView} OnePrduct={OnePrduct} id={id} />}
+          {view === 'addProduct' && <PostProduct user={user} addProduct={addProduct} changeView={changeView} />}
+          {view === 'login' && <Login error={error} login={login} changeView={changeView} />}
+          {view === 'singup' && <SingUp signupEmailHandler={signupEmailHandler} changeView={changeView} singUp={singUp} />}
+          {view === 'dashboard' && <Dashboard user={user} updateProduct={updateProduct} deleteProduct={deleteProduct} product={product} changeView={changeView} singUp={singUp} />}
+        </div>
+        <FooTer />
+      </div>
   );
 };
+;
 
 ReactDOM.render(<App />, document.getElementById("pokemongodb"));

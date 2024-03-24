@@ -1,5 +1,6 @@
 
 const db = require('../db/index');
+const { Op } = require('sequelize');
 
 // Create a new product
 const createProduct = async (req, res) => {
@@ -38,6 +39,23 @@ const getProductById = async (req, res) => {
     }
 };
 
+// Search products by name
+const searchProducts = async (req, res) => {
+    try {
+        const { search } = req.params;
+        const products = await db.Product.findAll({
+            where: {
+                name: {
+                    [Op.like]: `%${search}%`
+                }
+            }
+        });
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 // Update a product
 const updateProduct = async (req, res) => {
     try {
@@ -53,6 +71,7 @@ const updateProduct = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
 // Delete a product
 const deleteProduct = async (req, res) => {
     try {
@@ -67,11 +86,13 @@ const deleteProduct = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
 module.exports = {
     createProduct,
     getProducts,
     getProductById,
+    searchProducts,
     updateProduct,
     deleteProduct,
 };
-
+   

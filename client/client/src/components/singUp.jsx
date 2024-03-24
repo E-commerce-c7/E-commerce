@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 
-function singUp({ singUp, changeView }) {
+function singUp({ singUp, changeView,signupEmailHandler }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setname] = useState('');
@@ -48,6 +48,7 @@ function singUp({ singUp, changeView }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        signupEmailHandler(email,name)
         singUp({ email, password, name, role, image });
     };
 

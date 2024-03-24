@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Modal } from 'react-bootstrap';
 
-const Cart = ({ cart, getCart, user, destroyCart, deleteFromCart }) => {
+const Cart = ({ cart, getCart, user, destroyCart, deleteFromCart, handleCartemail }) => {
     const [discountCode, setDiscountCode] = useState('');
     const [discountApplied, setDiscountApplied] = useState(false);
     const [discountNotFound, setDiscountNotFound] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         getCart(user.id);
@@ -28,7 +30,18 @@ const Cart = ({ cart, getCart, user, destroyCart, deleteFromCart }) => {
 
     const handleDeleteFromCart = (itemId) => {
         deleteFromCart(itemId);
-        getCart(user.id); // Refetch cart after deleting an item
+        getCart(user.id);
+    };
+
+    const handleCheckout = () => {
+        handleCartemail(user.email, user.name, totalPrice);
+        destroyCart(user.id);
+        getCart(user.id);
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
     };
 
     return (
@@ -69,7 +82,19 @@ const Cart = ({ cart, getCart, user, destroyCart, deleteFromCart }) => {
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <span style={{ fontSize: '1.4rem', fontWeight: 'bold' }}>Total Price: ${discountApplied ? Math.floor(totalPrice * 0.8) : Math.floor(totalPrice)}</span>
                         <div>
-                            <input type="text" value={discountCode} onChange={handleDiscountCodeChange} placeholder="Discount Code" />
+                            <input
+                                type="text"
+                                value={discountCode}
+                                onChange={handleDiscountCodeChange}
+                                placeholder="Discount Code"
+                                style={{
+                                    padding: '10px',
+                                    fontSize: '1.2rem',
+                                    border: '1px solid #ccc',
+                                    borderRadius: '5px',
+                                    marginRight: '10px'
+                                }}
+                            />
                             <button
                                 style={{
                                     padding: '10px 20px',
@@ -98,16 +123,21 @@ const Cart = ({ cart, getCart, user, destroyCart, deleteFromCart }) => {
                                 cursor: 'pointer',
                                 fontSize: '1.2rem'
                             }}
-                            onClick={() => {
-                                destroyCart(user.id);
-                                getCart(user.id);
-                            }}
+                            onClick={handleCheckout}
                         >
                             Checkout
                         </button>
                     </div>
                 </>
             )}
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Thank you for shopping with us!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    You will be redirected to the payment gateway.
+                </Modal.Body>
+            </Modal>
         </div>
     );
 };

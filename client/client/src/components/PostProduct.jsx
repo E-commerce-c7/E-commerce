@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 
-const PostProduct = ({ addProduct, changeView, user }) => {
+const PostProduct = ({addProduct,changeView,user}) => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [image, setImage] = useState(null);
@@ -10,11 +10,10 @@ const PostProduct = ({ addProduct, changeView, user }) => {
     const [color, setColor] = useState([]);
     const [quantity, setQuantity] = useState(0);
     const [price, setPrice] = useState(0);
-    const [gender, setGender] = useState('');
-    const [brand, setBrand] = useState('');
+    const [gender, setGender] = useState(''); // Added gender state
+    const [brand, setBrand] = useState(''); // Added brand state
     const [isLoading, setIsLoading] = useState(false);
-    const [id, setId] = useState(user.id);
-    const [submitCount, setSubmitCount] = useState(0); // Added submitCount state
+    const [id,setId] = useState(user.id);
 
     const handleNameChange = (e) => {
         setName(e.target.value);
@@ -69,23 +68,10 @@ const PostProduct = ({ addProduct, changeView, user }) => {
         setBrand(e.target.value);
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        await addProduct({
-            name: name,
-            description: description,
-            price: price,
-            color: color,
-            sizes: sizes,
-            image: image,
-            gender: gender,
-            quantity: quantity,
-            brand: brand,
-            seller: user.name,
-            userId: id,
-        });
-        setSubmitCount(submitCount + 1); // Increment submitCount
-        changeView('main');
+        addProduct({ name:name, description:description ,price:price ,color: color ,sizes:sizes,image:image ,gender:gender,quantity:quantity ,brand:brand, seller:user.name,userId:id,})
+        changeView('main')
     };
 
     const colors = ['Red', 'Blue', 'Green', 'Yellow', 'Orange', 'Purple', 'Pink', 'Black', 'White', 'Gray'];
@@ -126,8 +112,8 @@ const PostProduct = ({ addProduct, changeView, user }) => {
                 <label htmlFor="quantity" style={{ fontWeight: 'bold' }}>Quantity:</label>
                 <input type="number" id="quantity" value={quantity} onChange={handleQuantityChange} style={{ padding: '5px', borderRadius: '5px', border: '1px solid gray' }} />
 
-                <label htmlFor="gender" style={{ fontWeight: 'bold' }}>Gender:</label>
-                <select id="gender" value={gender} onChange={handleGenderChange} style={{ padding: '5px', borderRadius: '5px', border: '1px solid gray' }}>
+                <label htmlFor="gender" style={{ fontWeight: 'bold' }}>Gender:</label> {/* Added gender label */}
+                <select id="gender" value={gender} onChange={handleGenderChange} style={{ padding: '5px', borderRadius: '5px', border: '1px solid gray' }}> {/* Added gender select */}
                     {genders.map((gender) => (
                         <option key={gender} value={gender}>
                             {gender}
@@ -135,28 +121,29 @@ const PostProduct = ({ addProduct, changeView, user }) => {
                     ))}
                 </select>
 
-                <label htmlFor="brand" style={{ fontWeight: 'bold' }}>Brand:</label>
-                <input type="text" id="brand" value={brand} onChange={handleBrandChange} style={{ padding: '5px', borderRadius: '5px', border: '1px solid gray' }} />
+                <label htmlFor="brand" style={{ fontWeight: 'bold' }}>Brand:</label> {/* Added brand label */}
+                <input type="text" id="brand" value={brand} onChange={handleBrandChange} style={{ padding: '5px', borderRadius: '5px', border: '1px solid gray' }} /> {/* Added brand input */}
 
                 <label htmlFor="image" style={{ fontWeight: 'bold' }}>Image:</label>
                 <Dropzone onDrop={handleImageDrop}>
                     {({ getRootProps, getInputProps }) => (
                         <section style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px', border: '2px dashed #ddd', borderRadius: '5px', backgroundColor: '#f9f9f9', color: '#888', fontSizes: '16px', cursor: 'pointer' }}>
-                            <div {...getRootProps()}>
-                                <input {...getInputProps()} />
-                                {isLoading ? (
-                                    <p style={{ margin: '0' }}>Uploading image...</p>
-                                ) : (
-                                    <p style={{ margin: '0' }}>Drag 'n' drop some files here, or click to select files</p>
-                                )}
-                            </div>
-                        </section>
+                           <div {...getRootProps()}>
+        <input {...getInputProps()} />
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : image ? (
+          <img src={image} alt="Uploaded" style={{ width: '100%', height: 'auto' }} />
+        ) : (
+          <p>Drag 'n' drop some files here, or click to select files</p>
+        )}
+      </div>
+    </section>
                     )}
                 </Dropzone>
 
                 <button type="submit" style={{ padding: '10px', backgroundColor: '#fff', color: '#000', border: '1px solid #000', borderRadius: '5px' }}>Submit</button>
             </form>
-            <div>{submitCount > 0 && <p>Form submitted successfully!</p>}</div> {/* Display success message */}
         </div>
     );
 };
