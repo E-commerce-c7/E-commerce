@@ -1,36 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Modal } from 'react-bootstrap';
 
-const ProductDetails = ({ OnePrduct, user, addToCart, getCart,isLogged,changeView}) => {
+const ProductDetails = ({ OnePrduct, user, addToCart, getCart, isLogged, changeView }) => {
     const [quantity, setQuantity] = useState(1);
     const [size, setSize] = useState('');
     const [color, setColor] = useState('');
     const [image, setImage] = useState(OnePrduct);
     const [id, setId] = useState(user.id);
     const [successMessage, setSuccessMessage] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    // const [quantitycheck, setQuantityCheck] = useState('available');
-    // const [seller, setSeller] = useState('anonymous');
-    console.log(isLogged);
-    console.log('dddd', OnePrduct.seller);
+    const [showModal, setShowModal] = useState(false);
+
     useEffect(() => {
-        // check();
-        // checkUser()
-        console.log('seller',OnePrduct.seller);
-    },[])
+        console.log('seller', OnePrduct.seller);
+    }, [])
+
     const handleQuantityChange = (event) => {
         setQuantity(event.target.value);
     };
-    // const check = () => {
-    //     if (OnePrduct.quantity < 0) {
-    //         setQuantityCheck('Not available');
-    //     }
-    // }
-    // const checkUser = () => {
-    //     if(OnePrduct.seller){
-    //     setSeller(OnePrduct.seller);
-    // }
-    // }
+
     const handleAttributeChange = (attribute, value) => {
         switch (attribute) {
             case 'size':
@@ -46,13 +33,23 @@ const ProductDetails = ({ OnePrduct, user, addToCart, getCart,isLogged,changeVie
 
     const handleAddToCart = () => {
         if (isLogged) {
-            addToCart({ name: OnePrduct.name, image: OnePrduct.image, price: OnePrduct.price, quantity: quantity, userId: id });
+            addToCart({
+                name: OnePrduct.name,
+                image: OnePrduct.image,
+                price: OnePrduct.price,
+                quantity: quantity,
+                userId: id
+            });
             getCart(id);
             setSuccessMessage('Product has been added successfully to the cart');
+            setShowModal(true);
         } else {
-            // Redirect to login page
-           changeView('login')
+            changeView('login');
         }
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
     };
 
     return (
@@ -64,7 +61,7 @@ const ProductDetails = ({ OnePrduct, user, addToCart, getCart,isLogged,changeVie
                 <div style={{ flex: '2', padding: '10px', display: 'flex', fontFamily: 'Arial, sans-serif', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <Card>
                         <Card.Body style={{ fontFamily: 'Arial, sans-serif' }}>
-                            <Card.Title style={{ fontSize: '26px', fontWeight: 'bold' }}>{OnePrduct.name}</Card.Title>
+                            <Card.Title style={{ fontSize: '26px', fontWeight: 'bold', textDecoration: 'underline', cursor: 'pointer' }}>{OnePrduct.name}</Card.Title>
                             <Card.Text style={{ fontSize: '18px', fontWeight: 'bold' }}>
                                 Price: ${OnePrduct.price}
                             </Card.Text>
@@ -106,19 +103,30 @@ const ProductDetails = ({ OnePrduct, user, addToCart, getCart,isLogged,changeVie
                                 </div>
                             </Card.Text>
                             <Card.Text style={{ fontSize: '14px' }}>
-                                Description:{OnePrduct.description}
+                                Description: {OnePrduct.description}
                             </Card.Text>
                             <Button variant="primary" style={{ width: '100%', backgroundColor: 'black', color: 'white', outline: 'none', border: 'none' }} onClick={handleAddToCart}>
                                 Add to Cart
                             </Button>
-                            {successMessage && <p style={{ color: 'green', fontSize: '20px' }}>{successMessage}</p>}
                         </Card.Body>
                     </Card>
                 </div>
             </div>
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Success</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <p style={{ color: 'green', fontSize: '20px' }}>{successMessage}</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseModal}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
-
 };
 
 export default ProductDetails;

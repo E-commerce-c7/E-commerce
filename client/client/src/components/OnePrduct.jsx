@@ -30,6 +30,12 @@ const ProductName = styled.h2`
     font-size: 16px;
     margin-bottom: 5px;
     font-family: Arial, sans-serif;
+    transition: font-size 0.3s, border-bottom 0.3s;
+    border-bottom: 1px solid transparent;
+    &:hover {
+        font-size: 18px;
+        border-bottom: 1px solid black;
+    }
 `;
 
 const ProductPrice = styled.p`
@@ -41,7 +47,7 @@ const ProductPrice = styled.p`
 const ProductDescription = styled.p`
     margin-top: 10px;
     font-size: 14px;
-    font-family: Arial, sans-serif  ;
+    font-family: Arial, sans-serif;
 `;
 
 const OneProduct = (props) => {
