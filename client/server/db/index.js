@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
 // Create a new Sequelize instance
-const sequelize = new Sequelize('ecommerce', 'root', 'Yeesou.33', {
+const sequelize = new Sequelize('ecommerce', 'root', 'root', {
     host: 'localhost',
     dialect: 'mysql',
 });
