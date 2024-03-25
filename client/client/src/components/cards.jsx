@@ -30,8 +30,8 @@ const Card = ({ changeView }) => {
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div className="card" style={{ width: '280px', margin: '1rem', border: 'none', borderRadius: '10px' }}>
-                <img src="https://demo.evershop.io/assets/homepage/banner/men-shoes.jpeg" alt="Card Image" className="card-image" style={{ borderRadius: '10px' }} />
+            <div className="card" style={{ width: '280px', margin: '1rem', border: 'none', borderRadius: '10px',  }}>
+                <img src="https://img.freepik.com/free-photo/teenager-boy-stylish-clothes-posing_23-2149085218.jpg" alt="Card Image" className="card-image" style={{ borderRadius: '10px', maxHeight: '280px' }} />
                 <div className="card-content">
                     <h2 className="card-title" style={{ fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginTop: '0.5rem', fontFamily: 'Arial, sans-serif' }}>MEN SHOES COLLECTION</h2>
                     <p className="card-description" style={{ fontSize: '0.9rem', fontFamily: 'Arial, sans-serif' }}>Constructed from luxury nylons, leathers, and custom hardware, featuring sport details such as hidden breathing vents, waterproof + antimicrobial linings, and more.</p>
@@ -42,7 +42,8 @@ const Card = ({ changeView }) => {
                 <img src="https://demo.evershop.io/assets/homepage/banner/women-shoes.jpeg" alt="Card Image" className="card-image" style={{ borderRadius: '10px' }} />
                 <div className="card-content">
                     <h2 className="card-title" style={{ fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginTop: '0.5rem', fontFamily: 'Arial, sans-serif' }}>WOMEN SHOES COLLECTION</h2>
-                    <p className="card-description" style={{ fontSize: '0.9rem', fontFamily: 'Arial, sans-serif' }}>Constructed from luxury nylons, leathers, and custom hardware, featuring sport details such as hidden breathing vents, waterproof + antimicrobial linings, and more.</p>
+                    <p className="card-description" style={{ fontSize: '0.9rem', fontFamily: 'Arial, sans-serif' }}>
+Crafted from opulent nylons, rich leathers, and adorned with bespoke hardware, these pieces epitomize luxury and functionality. Infused with sporty accents like hidden vents and waterproof linings.</p>
                     <Button ref={buttonRef2} variant="primary" className="card-button" style={{ width: '100%', outline: 'none', backgroundColor: '#fff', color: '#000', border: '1px solid #000' }} onClick={() => handleClick("women")} onMouseEnter={() => handleMouseEnter(buttonRef2)} onMouseLeave={() => handleMouseLeave(buttonRef2)}>SHOP WOMEN</Button>
                 </div>
             </div>
@@ -50,7 +51,7 @@ const Card = ({ changeView }) => {
                 <img src="https://demo.evershop.io/assets/homepage/banner/kid-shoes.jpeg" alt="Card Image" className="card-image" style={{ borderRadius: '10px' }} />
                 <div className="card-content">
                     <h2 className="card-title" style={{ fontSize: '1rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginTop: '0.5rem', fontFamily: 'Arial, sans-serif' }}>KIDS SHOES COLLECTION</h2>
-                    <p className="card-description" style={{ fontSize: '0.9rem', fontFamily: 'Arial, sans-serif' }}>Constructed from luxury nylons, leathers, and custom hardware, featuring sport details such as hidden breathing vents, waterproof + antimicrobial linings, and more.</p>
+                    <p className="card-description" style={{ fontSize: '0.9rem', fontFamily: 'Arial, sans-serif' }}>Fashioned from luxurious nylons, supple leathers, and featuring bespoke hardware, these designs merge opulence with practicality. Sporting discreet ventilation and waterproof, antimicrobial linings.</p>
                     <Button ref={buttonRef3} variant="primary" className="card-button" style={{ width: '100%', outline: 'none', backgroundColor: '#fff', color: '#000', border: '1px solid #000' }} onClick={() => handleClick("kids")} onMouseEnter={() => handleMouseEnter(buttonRef3)} onMouseLeave={() => handleMouseLeave(buttonRef3)}>SHOP KIDS</Button>
                 </div>
             </div>

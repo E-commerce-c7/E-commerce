@@ -126,21 +126,19 @@ const PostProduct = ({addProduct,changeView,user}) => {
 
                 <label htmlFor="image" style={{ fontWeight: 'bold' }}>Image:</label>
                 <Dropzone onDrop={handleImageDrop}>
-                    {({ getRootProps, getInputProps }) => (
-                        <section style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px', border: '2px dashed #ddd', borderRadius: '5px', backgroundColor: '#f9f9f9', color: '#888', fontSizes: '16px', cursor: 'pointer' }}>
-                           <div {...getRootProps()}>
-        <input {...getInputProps()} />
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : image ? (
-          <img src={image} alt="Uploaded" style={{ width: '100%', height: 'auto' }} />
-        ) : (
-          <p>Drag 'n' drop some files here, or click to select files</p>
-        )}
-      </div>
-    </section>
-                    )}
-                </Dropzone>
+                        {({ getRootProps, getInputProps }) => (
+                            <section style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px', border: '2px dashed #ddd', borderRadius: '5px', backgroundColor: '#f9f9f9', color: '#888', fontSize: '16px', cursor: 'pointer' }}>
+                                <div {...getRootProps()}>
+                                    <input {...getInputProps()} />
+                                    {isLoading ? ( // Show loading screen if isLoading is true
+                                        <p style={{ margin: '0' }}>Uploading image...</p>
+                                    ) : (
+                                        <p style={{ margin: '0' }}>Drag 'n' drop some files here, or click to select files</p>
+                                    )}
+                                </div>
+                            </section>
+                        )}
+                    </Dropzone>
 
                 <button type="submit" style={{ padding: '10px', backgroundColor: '#fff', color: '#000', border: '1px solid #000', borderRadius: '5px' }}>Submit</button>
             </form>
